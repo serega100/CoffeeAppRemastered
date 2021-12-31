@@ -4,7 +4,9 @@ import 'package:coffee_app_remastered/view/components/page_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class HomePage extends StatefulWidget {
+import 'i_page.dart';
+
+class HomePage extends StatefulWidget implements IPage {
   HomePage({Key? key}) : super(key: key);
 
   final pageMargin = const EdgeInsets.only(left: 15, right: 15, bottom: 20);
@@ -20,6 +22,9 @@ class HomePage extends StatefulWidget {
 
   @override
   _HomePageState createState() => _HomePageState();
+
+  @override
+  Widget getAsWidget() => this;
 }
 
 class _HomePageState extends State<HomePage> {

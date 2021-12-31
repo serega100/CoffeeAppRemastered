@@ -1,4 +1,4 @@
-import 'package:coffee_app_remastered/view/pages/home_page.dart';
+import 'package:coffee_app_remastered/view/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +19,7 @@ class CoffeeApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: const Color(0xffe5e5e5),
       ),
-      home: HomePage(),
+      home: MainView(),
     );
   }
 }
