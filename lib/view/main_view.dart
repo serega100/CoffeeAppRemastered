@@ -34,7 +34,7 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentPage.getAsWidget(),
+      body: SafeArea(child: _currentPage.getAsWidget()),
       backgroundColor: Theme.of(context).backgroundColor,
       bottomNavigationBar: NavigationBar(
         unselectedItemColor: widget.unselectedIconColor,

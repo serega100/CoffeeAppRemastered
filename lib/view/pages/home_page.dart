@@ -16,7 +16,8 @@ class HomePage extends StatefulWidget implements IPage {
   final horizontalContainerSpacing = 10.0;
 
   double getSmallContainerWidth(double screenWidth) {
-    var margins = pageMargin.left + pageMargin.right + horizontalContainerSpacing;
+    var margins =
+        pageMargin.left + pageMargin.right + horizontalContainerSpacing;
     return (screenWidth - margins) / 2;
   }
 
@@ -33,63 +34,58 @@ class _HomePageState extends State<HomePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final smallContainerWidth = widget.getSmallContainerWidth(screenWidth);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: widget.pageMargin,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return SingleChildScrollView(
+      child: Container(
+        margin: widget.pageMargin,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PageTitle("Добрый день", margin: widget.titleMargin),
+            Wrap(
+                spacing: widget.horizontalContainerSpacing,
+                runSpacing: widget.verticalContainerSpacing,
+                children: [
+                  BigHomeContainer(
+                    title: "Первый кофе бесплатно",
+                    actionText: "Акция доступна для вас",
+                    backgroundImage:
+                        Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                  ),
+                  SmallHomeContainer(
+                    title: "Айс-крим-брод за 69 руб",
+                    actionText: "Успей до 26 ноября",
+                    backgroundImage:
+                        Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                    width: smallContainerWidth,
+                  ),
+                ]),
+            PageTitle("Это интересно", margin: widget.titleMargin),
+            Wrap(
+              spacing: widget.horizontalContainerSpacing,
+              runSpacing: widget.verticalContainerSpacing,
               children: [
-                PageTitle("Добрый день", margin: widget.titleMargin),
-                Wrap(
-                    spacing: widget.horizontalContainerSpacing,
-                    runSpacing: widget.verticalContainerSpacing,
-                    children: [
-                      BigHomeContainer(
-                        title: "Первый кофе бесплатно",
-                        actionText: "Акция доступна для вас",
-                        backgroundImage:
-                            Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                      ),
-                      SmallHomeContainer(
-                        title: "Айс-крим-брод за 69 руб",
-                        actionText: "Успей до 26 ноября",
-                        backgroundImage:
-                            Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                        width: smallContainerWidth,
-                      ),
-                    ]),
-                PageTitle("Это интересно", margin: widget.titleMargin),
-                Wrap(
-                  spacing: widget.horizontalContainerSpacing,
-                  runSpacing: widget.verticalContainerSpacing,
-                  children: [
-                    BigHomeContainer(
-                      title: "Первый кофе бесплатно",
-                      actionText: "Акция доступна для вас",
-                      backgroundImage:
-                          Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                    ),
-                    SmallHomeContainer(
-                      title: "Айс-крим-брод за 69 руб",
-                      actionText: "Успей до 26 ноября",
-                      backgroundImage:
-                          Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                      width: smallContainerWidth,
-                    ),
-                    SmallHomeContainer(
-                      title: "Айс-крим-брод за 69 руб",
-                      backgroundImage:
-                          Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                      width: smallContainerWidth,
-                    ),
-                  ],
-                )
+                BigHomeContainer(
+                  title: "Первый кофе бесплатно",
+                  actionText: "Акция доступна для вас",
+                  backgroundImage:
+                      Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                ),
+                SmallHomeContainer(
+                  title: "Айс-крим-брод за 69 руб",
+                  actionText: "Успей до 26 ноября",
+                  backgroundImage:
+                      Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                  width: smallContainerWidth,
+                ),
+                SmallHomeContainer(
+                  title: "Айс-крим-брод за 69 руб",
+                  backgroundImage:
+                      Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                  width: smallContainerWidth,
+                ),
               ],
-            ),
-          ),
+            )
+          ],
         ),
       ),
     );
