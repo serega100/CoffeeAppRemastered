@@ -31,13 +31,14 @@ class SmallDiscountContainer extends StatelessWidget implements IDiscountContain
     ];
 
     if (_action != null) {
-      content.add(const SizedBox(height: 20));
+      content.add(Spacer());
       content.add(_action!.widget);
     } else {
       content.add(DiscountContainerActionText(""));
     }
 
     return Container(
+      height: 210,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: _backgroundImage.image,
@@ -49,6 +50,7 @@ class SmallDiscountContainer extends StatelessWidget implements IDiscountContain
       margin: _margin,
       width: _width,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: content,
       ),
