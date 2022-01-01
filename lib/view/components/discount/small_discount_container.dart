@@ -28,10 +28,10 @@ class SmallDiscountContainer extends StatelessWidget implements IDiscountContain
   Widget build(BuildContext context) {
     var content = <Widget>[
       DiscountContainerTitle(_title),
+      Spacer()
     ];
 
     if (_action != null) {
-      content.add(Spacer());
       content.add(_action!.widget);
     } else {
       content.add(DiscountContainerActionText(""));
