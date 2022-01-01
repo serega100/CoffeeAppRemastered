@@ -8,7 +8,7 @@ import 'i_page.dart';
 class MenuPage extends StatefulWidget implements IPage {
   const MenuPage({Key? key}) : super(key: key);
 
-  final pageMargin = const EdgeInsets.only(left: 15, right: 15, bottom: 20);
+  final pageMargin = const EdgeInsets.only(left: 15, right: 20, bottom: 20);
   final titleMargin = const EdgeInsets.only(top: 20, bottom: 20, left: 5);
 
   final verticalContainerSpacing = 10.0;
