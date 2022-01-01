@@ -1,5 +1,7 @@
-import 'package:coffee_app_remastered/view/components/home/big_home_container.dart';
-import 'package:coffee_app_remastered/view/components/home/small_home_container.dart';
+import 'package:coffee_app_remastered/view/components/discount/action/action_text.dart';
+import 'package:coffee_app_remastered/view/components/discount/action/coffee_progress.dart';
+import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
+import 'package:coffee_app_remastered/view/components/discount/small_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/page_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -45,17 +47,38 @@ class _HomePageState extends State<HomePage> {
                 spacing: widget.horizontalContainerSpacing,
                 runSpacing: widget.verticalContainerSpacing,
                 children: [
-                  BigHomeContainer(
+                  BigDiscountContainer(
                     title: "Первый кофе бесплатно",
-                    actionText: "Акция доступна для вас",
+                    action: DiscountActionText("Акция доступна для вас"),
                     backgroundImage:
                         Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   ),
-                  SmallHomeContainer(
+                  SmallDiscountContainer(
+                    title: "Шестой кофе бесплатно",
+                    action: CoffeeProgress(4, 6),
+                    backgroundImage:
+                        Image.asset("assets/test/coffee_mug.jpg"),
+                    width: smallContainerWidth,
+                  ),
+                  SmallDiscountContainer(
                     title: "Айс-крим-брод за 69 руб",
-                    actionText: "Успей до 26 ноября",
+                    action: DiscountActionText("Успей до 26 ноября"),
                     backgroundImage:
                         Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                    width: smallContainerWidth,
+                  ),
+                  SmallDiscountContainer(
+                    title: "Айс-крим-брод за 69 руб",
+                    action: DiscountActionText("Успей до 26 ноября"),
+                    backgroundImage:
+                    Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                    width: smallContainerWidth,
+                  ),
+                  SmallDiscountContainer(
+                    title: "Айс-крим-брод за 69 руб",
+                    action: DiscountActionText("Успей до 26 ноября"),
+                    backgroundImage:
+                    Image.asset("assets/test/coffee_cup_on_table.jpg"),
                     width: smallContainerWidth,
                   ),
                 ]),
@@ -64,20 +87,20 @@ class _HomePageState extends State<HomePage> {
               spacing: widget.horizontalContainerSpacing,
               runSpacing: widget.verticalContainerSpacing,
               children: [
-                BigHomeContainer(
+                BigDiscountContainer(
                   title: "Первый кофе бесплатно",
-                  actionText: "Акция доступна для вас",
+                  action: DiscountActionText("Акция доступна для вас"),
                   backgroundImage:
                       Image.asset("assets/test/coffee_cup_on_table.jpg"),
                 ),
-                SmallHomeContainer(
+                SmallDiscountContainer(
                   title: "Айс-крим-брод за 69 руб",
-                  actionText: "Успей до 26 ноября",
+                  action: DiscountActionText("Успей до 26 ноября"),
                   backgroundImage:
                       Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   width: smallContainerWidth,
                 ),
-                SmallHomeContainer(
+                SmallDiscountContainer(
                   title: "Айс-крим-брод за 69 руб",
                   backgroundImage:
                       Image.asset("assets/test/coffee_cup_on_table.jpg"),

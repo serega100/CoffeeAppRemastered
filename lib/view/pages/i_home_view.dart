@@ -1,5 +1,5 @@
-import 'package:coffee_app_remastered/view/components/home/i_home_wrap.dart';
+import 'package:coffee_app_remastered/view/components/discount/i_container_wrap.dart';
 
-abstract class IHomeView {
-  void updateWraps(List<IHomeWrap> wraps);
+abstract class IDiscountWrapView {
+  void updateWraps(List<IDiscountWrap> wraps);
 }

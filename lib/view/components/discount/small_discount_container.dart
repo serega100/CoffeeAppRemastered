@@ -1,23 +1,24 @@
-import 'package:coffee_app_remastered/view/components/home/home_contatiner_typography.dart';
-import 'package:coffee_app_remastered/view/components/home/i_home_container.dart';
+import 'package:coffee_app_remastered/view/components/discount/action/i_discount_action.dart';
+import 'package:coffee_app_remastered/view/components/discount/discount_contatiner_typography.dart';
+import 'package:coffee_app_remastered/view/components/discount/i_discount_container.dart';
 import 'package:flutter/material.dart';
 
-class SmallHomeContainer extends StatelessWidget implements IHomeContainer {
+class SmallDiscountContainer extends StatelessWidget implements IDiscountContainer {
   String _title;
-  String? _actionText;
+  IDiscountAction? _action;
   Image _backgroundImage; // todo switch Image to ImageProvider
   EdgeInsetsGeometry? _margin;
   double? _width;
 
-  SmallHomeContainer({
+  SmallDiscountContainer({
     required String title,
-    String? actionText,
+    IDiscountAction? action,
     required Image backgroundImage,
     EdgeInsetsGeometry? margin,
     double? width,
     Key? key,
   })  : _title = title,
-        _actionText = actionText,
+        _action = action,
         _backgroundImage = backgroundImage,
         _margin = margin,
         _width = width,
@@ -26,14 +27,14 @@ class SmallHomeContainer extends StatelessWidget implements IHomeContainer {
   @override
   Widget build(BuildContext context) {
     var content = <Widget>[
-      HomeContainerTitle(_title),
-      const SizedBox(height: 20)
+      DiscountContainerTitle(_title),
     ];
 
-    if (_actionText != null) {
-      content.add(HomeContainerActionText(_actionText!));
+    if (_action != null) {
+      content.add(const SizedBox(height: 20));
+      content.add(_action!.widget);
     } else {
-      content.add(HomeContainerActionText(""));
+      content.add(DiscountContainerActionText(""));
     }
 
     return Container(

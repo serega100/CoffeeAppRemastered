@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeContainerTitle extends StatelessWidget {
+class DiscountContainerTitle extends StatelessWidget {
   String _text;
 
-  HomeContainerTitle(String text, {Key? key})
+  DiscountContainerTitle(String text, {Key? key})
       : _text = text,
         super(key: key);
 
@@ -20,10 +20,10 @@ class HomeContainerTitle extends StatelessWidget {
   }
 }
 
-class HomeContainerActionText extends StatelessWidget {
+class DiscountContainerActionText extends StatelessWidget {
   String _text;
 
-  HomeContainerActionText(String text, {Key? key})
+  DiscountContainerActionText(String text, {Key? key})
       : _text = text,
         super(key: key);
 
@@ -36,6 +36,28 @@ class HomeContainerActionText extends StatelessWidget {
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),
+    );
+  }
+}
+
+class DiscountContainerDescription extends StatelessWidget {
+  String _text;
+
+  DiscountContainerDescription(String text, {Key? key})
+      : _text = text,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      _text,
+      style: GoogleFonts.roboto(
+        color: Colors.white,
+        fontWeight: FontWeight.w300,
+        fontSize: 12,
+      ),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
     );
   }
 }
