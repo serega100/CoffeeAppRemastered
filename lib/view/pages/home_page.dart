@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             )
-          ],
+          ], // todo add price containers
         ),
       ),
     );
