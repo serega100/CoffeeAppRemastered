@@ -3,6 +3,7 @@ import 'package:coffee_app_remastered/view/components/discount/action/coffee_pro
 import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/discount/small_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/page_typography.dart';
+import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,13 +12,11 @@ import 'i_page.dart';
 class HomePage extends StatefulWidget implements IPage {
   HomePage({Key? key}) : super(key: key);
 
-  final pageMargin = const EdgeInsets.only(left: 15, right: 15, bottom: 20);
-  final titleMargin = const EdgeInsets.only(top: 20, bottom: 20, left: 5);
-
   final verticalContainerSpacing = 10.0;
   final horizontalContainerSpacing = 10.0;
 
   double getSmallContainerWidth(double screenWidth) {
+    var pageMargin = ViewSettings.pageMargin;
     var margins =
         pageMargin.left + pageMargin.right + horizontalContainerSpacing;
     return (screenWidth - margins) / 2;
@@ -38,11 +37,11 @@ class _HomePageState extends State<HomePage> {
 
     return SingleChildScrollView(
       child: Container(
-        margin: widget.pageMargin,
+        margin: ViewSettings.pageMargin,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PageTitle("Добрый день", margin: widget.titleMargin),
+            PageTitle("Добрый день"),
             Wrap(
                 spacing: widget.horizontalContainerSpacing,
                 runSpacing: widget.verticalContainerSpacing,
@@ -82,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                     width: smallContainerWidth,
                   ),
                 ]),
-            PageTitle("Это интересно", margin: widget.titleMargin),
+            PageTitle("Это интересно"),
             Wrap(
               spacing: widget.horizontalContainerSpacing,
               runSpacing: widget.verticalContainerSpacing,

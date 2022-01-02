@@ -16,9 +16,6 @@ class CoffeeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Coffee App',
-      theme: ThemeData(
-        backgroundColor: const Color(0xffe5e5e5),
-      ),
       home: MainView(),
     );
   }

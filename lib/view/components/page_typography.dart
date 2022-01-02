@@ -1,12 +1,16 @@
+import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PageTitle extends StatelessWidget {
   String _text;
-  EdgeInsetsGeometry? _margin;
+  EdgeInsetsGeometry _margin;
 
-  PageTitle(String text, {EdgeInsetsGeometry? margin, Key? key})
-      : _text = text,
+  PageTitle(
+    String text, {
+    EdgeInsetsGeometry margin = ViewSettings.pageTitleMargin,
+    Key? key,
+  })  : _text = text,
         _margin = margin,
         super(key: key);
 

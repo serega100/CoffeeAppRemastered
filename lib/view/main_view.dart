@@ -6,14 +6,12 @@ import 'package:coffee_app_remastered/view/pages/home_page.dart';
 import 'package:coffee_app_remastered/view/pages/i_page.dart';
 import 'package:coffee_app_remastered/view/pages/map_page.dart';
 import 'package:coffee_app_remastered/view/pages/menu_page.dart';
+import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 
 import 'components/navigation/navigation_icon.dart';
 
 class MainView extends StatefulWidget {
-  final unselectedIconColor = const Color(0xFFC4C4C4);
-  final selectedIconColor = const Color(0xFF27AE60);
-
   final pages = <PageIconHolder>[
     PageIconHolder(HomePage(), const NavigationIcon(Icons.home)),
     PageIconHolder(DiscountsPage(), const NavigationIcon(Icons.local_activity)),
@@ -35,10 +33,10 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: _currentPage.getAsWidget()),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: ViewSettings.pageBackgroundColor,
       bottomNavigationBar: NavigationBar(
-        unselectedItemColor: widget.unselectedIconColor,
-        selectedItemColor: widget.selectedIconColor,
+        unselectedItemColor: ViewSettings.unselectedNavigationIconColor,
+        selectedItemColor: ViewSettings.selectedNavigationIconColor,
         pages: widget.pages,
         onPageChanged: _onPageChanged,
       ),
