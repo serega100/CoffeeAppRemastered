@@ -1,0 +1,4 @@
+enum AddressState {
+  opened,
+  closed
+}
