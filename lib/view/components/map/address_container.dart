@@ -1,6 +1,7 @@
 import 'package:coffee_app_remastered/presenter/map/address/address.dart';
 import 'package:coffee_app_remastered/presenter/map/address/address_state.dart';
 import 'package:coffee_app_remastered/view/components/map/select_button.dart';
+import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,6 +9,8 @@ class AddressContainer extends StatefulWidget {
   final Address address;
   final void Function(Address) onPressed;
   final void Function(Address) onSelected;
+
+  // todo add padding
 
   const AddressContainer({
     required this.address,
@@ -37,14 +40,14 @@ class _AddressContainerState extends State<AddressContainer> {
                   fontSize: 18,
                 ),
               ),
-              SizedBox(height: 2),
+              SizedBox(height: 5),
               Text(
                 widget.address.subtitle,
                 style: TextStyle(
                   fontSize: 14,
                 ),
               ),
-              SizedBox(height: 2),
+              SizedBox(height: 5),
               _AddressStateWidget(
                 state: widget.address.state,
                 endTime: widget.address.endStateTime,
@@ -54,7 +57,12 @@ class _AddressContainerState extends State<AddressContainer> {
           Spacer(),
           Column(
             children: [
-              SelectButton(onSelected: () => widget.onSelected(widget.address)),
+              SelectButton(
+                  selected: widget.address.isSelected,
+                  onSelected: () => widget.onSelected(widget.address),
+              ),
+              Spacer(),
+              Text(ViewUtils.beautifyDistance(widget.address.distance))
             ],
           )
         ],

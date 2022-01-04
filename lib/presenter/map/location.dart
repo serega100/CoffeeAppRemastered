@@ -14,6 +14,7 @@ class Location {
     return getDistanceTo(userLoc);
   }
 
+  /// Get distance between this and other locations in meters
   double getDistanceTo(Location other) {
     return Geolocator.distanceBetween(
         latitude, longitude, other.latitude, other.longitude);

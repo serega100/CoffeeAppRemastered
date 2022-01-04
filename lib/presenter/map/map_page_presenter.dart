@@ -12,9 +12,9 @@ class MapPagePresenter {
 
   // todo make async loading with shimmer effect in view
   Future<List<Address>> getAddressList() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3)); // todo debug
     return <Address>[
-      Address(
+      await Address.create(
         title: "ул. Малышева д. 113",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -25,7 +25,7 @@ class MapPagePresenter {
         endStateTime: DateTime(1, 1, 1, 23, 0),
         isSelected: true,
       ),
-      Address(
+      await Address.create(
         title: "ул. Мира д. 19 (этаж 1)",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -36,7 +36,7 @@ class MapPagePresenter {
         endStateTime: DateTime(1, 1, 1, 23, 0),
         isSelected: false,
       ),
-      Address(
+      await Address.create(
         title: "просп. Ленина, д. 36",
         subtitle: "г. Екатеринбург",
         location: Location(

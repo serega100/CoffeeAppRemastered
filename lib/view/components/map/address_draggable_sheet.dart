@@ -27,8 +27,8 @@ class _AddressDraggableSheetState extends State<AddressDraggableSheet> {
 
   @override
   Widget build(BuildContext context) {
-    widget.futureAddressList.then((value) {
-      addressList = value;
+    widget.futureAddressList.then((addressList) {
+      addressList = addressList;
       setState(() {
         _isLoaded = true;
       });
@@ -62,8 +62,8 @@ class _AddressDraggableSheetState extends State<AddressDraggableSheet> {
                   child: ListView(
                     controller: scrollController,
                     children: (!_isLoaded) ?
-                    _getShimmerSheetContents(spacing: 10) :
-                    _createSheetContents(addressList, spacing: 10),
+                    _getShimmerSheetContents(spacing: 20) :
+                    _createSheetContents(addressList, spacing: 20),
                   ),
                 ),
               ],
