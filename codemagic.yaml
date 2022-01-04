@@ -2,4 +2,4 @@ workflows:
   podfile-initialization:
     name: Podfile Initialization
     scripts:
-      - cd ios && pod init && git add . && git commit -m "Add Podfile to project" && git push
+      - cd ios && pod init && git add . && git commit -m  "Add Podfile to project" && git push "https://serega100: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@github.com/CoffeeAppRemastered.git" --tags
