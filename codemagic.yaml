@@ -2,8 +2,4 @@ workflows:
   podfile-initialization:
     name: Podfile Initialization
     scripts:
-      - cd ios
-      - pod init
-      - git add .
-      - git commit -m "Add Podfile to project"
-      - git push
+      - cd ios && pod init && git add . && git commit -m "Add Podfile to project" && git push
