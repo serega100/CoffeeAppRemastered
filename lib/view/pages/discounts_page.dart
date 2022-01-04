@@ -1,13 +1,23 @@
 import 'package:coffee_app_remastered/view/components/discount/action/action_text.dart';
 import 'package:coffee_app_remastered/view/components/discount/action/coffee_progress.dart';
 import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
+import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
 import 'package:coffee_app_remastered/view/components/page_typography.dart';
-import 'package:coffee_app_remastered/view/pages/i_page.dart';
+import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 
-class DiscountsPage extends StatefulWidget implements IPage {
-  const DiscountsPage({Key? key}) : super(key: key);
+class DiscountsPage extends StatefulWidget implements INavigationBarPage {
+  @override
+  final NavigationIcon icon;
+  @override
+  final String label;
+
+  const DiscountsPage({
+    required this.icon,
+    required this.label,
+    Key? key,
+  }) : super(key: key);
 
   final verticalContainerSpacing = 10.0;
   final horizontalContainerSpacing = 10.0;
@@ -17,6 +27,9 @@ class DiscountsPage extends StatefulWidget implements IPage {
 
   @override
   Widget getAsWidget() => this;
+
+  @override
+  Color? get navigationCornerColor => null;
 }
 
 class _DiscountsPageState extends State<DiscountsPage> {
@@ -35,23 +48,23 @@ class _DiscountsPageState extends State<DiscountsPage> {
                 children: [
                   BigDiscountContainer(
                     title: "Первый кофе бесплатно",
-                    description: "Закажи свой первый кофе через приложение и получи его бесплатно!",
+                    description:
+                        "Закажи свой первый кофе через приложение и получи его бесплатно!",
                     action: DiscountActionText("Акция доступна для вас"),
-                    backgroundImage: Image.asset(
-                        "assets/test/coffee_cup_on_table.jpg"),
+                    backgroundImage:
+                        Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   ),
                   BigDiscountContainer(
                     title: "Шестой кофе бесплатно",
-                    description: "Закажите через приложение 5 чашек любого кофе и получите 6-ю за наш счёт!",
+                    description:
+                        "Закажите через приложение 5 чашек любого кофе и получите 6-ю за наш счёт!",
                     action: CoffeeProgress(4, 6),
-                    backgroundImage: Image.asset(
-                        "assets/test/coffee_mug.jpg"),
+                    backgroundImage: Image.asset("assets/test/coffee_mug.jpg"),
                   ),
                 ],
               ),
             ],
-          )
-      ),
+          )),
     );
   }
 }

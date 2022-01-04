@@ -1,14 +1,13 @@
 import 'package:coffee_app_remastered/view/components/navigation/navigation_bar.dart';
-import 'package:coffee_app_remastered/view/components/navigation/page_icon_holder.dart';
-import 'package:coffee_app_remastered/view/pages/i_page.dart';
+import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
-  final List<PageIconHolder> pages;
+  final List<INavigationBarPage> navigationPages;
 
   MainView({
-    required this.pages,
+    required this.navigationPages,
     Key? key,
   }) : super(key: key);
 
@@ -17,7 +16,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  late IPage _currentPage = widget.pages[0].page;
+  late INavigationBarPage _currentPage = widget.navigationPages[0];
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +26,13 @@ class _MainViewState extends State<MainView> {
       bottomNavigationBar: NavigationBar(
         unselectedItemColor: ViewSettings.unselectedColor,
         selectedItemColor: ViewSettings.selectedColor,
-        pages: widget.pages,
+        pages: widget.navigationPages,
         onPageChanged: _onPageChanged,
       ),
     );
   }
 
-  void _onPageChanged(IPage newPage) {
+  void _onPageChanged(INavigationBarPage newPage) {
     setState(() {
       _currentPage = newPage;
     });

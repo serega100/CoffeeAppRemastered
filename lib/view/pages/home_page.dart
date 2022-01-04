@@ -2,15 +2,24 @@ import 'package:coffee_app_remastered/view/components/discount/action/action_tex
 import 'package:coffee_app_remastered/view/components/discount/action/coffee_progress.dart';
 import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/discount/small_discount_container.dart';
+import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
 import 'package:coffee_app_remastered/view/components/page_typography.dart';
+import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'i_page.dart';
+class HomePage extends StatefulWidget implements INavigationBarPage {
+  @override
+  final NavigationIcon icon;
+  @override
+  final String label;
 
-class HomePage extends StatefulWidget implements IPage {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    required this.icon,
+    required this.label,
+    Key? key,
+  }) : super(key: key);
 
   final verticalContainerSpacing = 10.0;
   final horizontalContainerSpacing = 10.0;
@@ -27,6 +36,9 @@ class HomePage extends StatefulWidget implements IPage {
 
   @override
   Widget getAsWidget() => this;
+
+  @override
+  Color? get navigationCornerColor => null;
 }
 
 class _HomePageState extends State<HomePage> {
@@ -55,8 +67,7 @@ class _HomePageState extends State<HomePage> {
                   SmallDiscountContainer(
                     title: "Шестой кофе бесплатно",
                     action: CoffeeProgress(4, 6),
-                    backgroundImage:
-                        Image.asset("assets/test/coffee_mug.jpg"),
+                    backgroundImage: Image.asset("assets/test/coffee_mug.jpg"),
                     width: smallContainerWidth,
                   ),
                   SmallDiscountContainer(
@@ -70,14 +81,14 @@ class _HomePageState extends State<HomePage> {
                     title: "Айс-крим-брод за 69 руб",
                     action: DiscountActionText("Успей до 26 ноября"),
                     backgroundImage:
-                    Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                        Image.asset("assets/test/coffee_cup_on_table.jpg"),
                     width: smallContainerWidth,
                   ),
                   SmallDiscountContainer(
                     title: "Айс-крим-брод за 69 руб",
                     action: DiscountActionText("Успей до 26 ноября"),
                     backgroundImage:
-                    Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                        Image.asset("assets/test/coffee_cup_on_table.jpg"),
                     width: smallContainerWidth,
                   ),
                 ]),
