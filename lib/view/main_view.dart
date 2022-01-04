@@ -1,4 +1,4 @@
-import 'package:coffee_app_remastered/view/components/navigation/navigation_bar.dart';
+import 'package:coffee_app_remastered/view/components/navigation/rounded_navigation_bar.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       body: SafeArea(child: _currentPage.getAsWidget()),
       backgroundColor: ViewSettings.pageBackgroundColor,
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: RoundedNavigationBar(
         unselectedItemColor: ViewSettings.unselectedColor,
         selectedItemColor: ViewSettings.selectedColor,
         pages: widget.navigationPages,

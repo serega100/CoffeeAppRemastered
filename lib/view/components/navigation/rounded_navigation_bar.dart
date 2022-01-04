@@ -2,13 +2,13 @@ import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 
-class NavigationBar extends StatefulWidget {
+class RoundedNavigationBar extends StatefulWidget {
   final List<INavigationBarPage> pages;
   final ValueChanged<INavigationBarPage> onPageChanged;
   final Color unselectedItemColor;
   final Color selectedItemColor;
 
-  const NavigationBar({
+  const RoundedNavigationBar({
     required this.pages,
     required this.onPageChanged,
     required this.unselectedItemColor,
@@ -17,10 +17,10 @@ class NavigationBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NavigationBarState createState() => _NavigationBarState();
+  _RoundedNavigationBarState createState() => _RoundedNavigationBarState();
 }
 
-class _NavigationBarState extends State<NavigationBar> {
+class _RoundedNavigationBarState extends State<RoundedNavigationBar> {
   var _currentIndex = 0;
   late Color _cornerColor = _getCornerColor(widget.pages[0]);
 
