@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:coffee_app_remastered/presenter/map/address/address.dart';
+import 'package:coffee_app_remastered/presenter/map/location.dart';
 import 'package:coffee_app_remastered/presenter/map/map_page_presenter.dart';
 import 'package:coffee_app_remastered/view/components/map/address_draggable_sheet.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
@@ -39,6 +40,7 @@ class _MapPageState extends State<MapPage> {
   var _addressesLoaded = false;
 
   late final List<Address> _addressList;
+  var _markers = <Marker>{};
   final Completer<GoogleMapController> _mapControllerHolder = Completer();
 
   void _init() {
@@ -46,16 +48,13 @@ class _MapPageState extends State<MapPage> {
       setState(() {
         _addressList = adrList;
         _addressesLoaded = true;
+        _markers = _createMarkers(adrList);
       });
     });
 
     widget.presenter.getUserLocation().then((userLoc) {
       if (userLoc != null) {
-        _mapControllerHolder.future.then((controller) {
-          controller.moveCamera(CameraUpdate.newLatLng(
-              LatLng(userLoc.latitude, userLoc.longitude)
-          ));
-        });
+        _showLocation(userLoc);
       }
     });
   }
@@ -75,6 +74,7 @@ class _MapPageState extends State<MapPage> {
           zoomControlsEnabled: false,
           myLocationEnabled: true,
           myLocationButtonEnabled: true,
+          markers: _markers,
           initialCameraPosition: _getDefaultCameraPosition(14.00),
           onMapCreated: (mapController) {
             _mapControllerHolder.complete(mapController);
@@ -93,13 +93,13 @@ class _MapPageState extends State<MapPage> {
           addressList: (_addressesLoaded) ? _addressList : null,
           onAddressPressed: (address) =>
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            duration: Duration(seconds: 1),
-            content: Text('Tap on ${address.title}'),
-          )),
+                duration: Duration(seconds: 1),
+                content: Text('Tap on ${address.title}'),
+              )),
           onAddressSelected: (address) =>
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Select ${address.title}'),
-          )),
+                content: Text('Select ${address.title}'),
+              )),
         ),
       ],
     );
@@ -110,5 +110,30 @@ class _MapPageState extends State<MapPage> {
     var latitude = defaultLoc.latitude;
     var longitude = defaultLoc.longitude;
     return CameraPosition(target: LatLng(latitude, longitude), zoom: zoom);
+  }
+
+  void _showLocation(Location loc) {
+    _mapControllerHolder.future.then((controller) {
+      controller.moveCamera(CameraUpdate.newLatLng(
+          _toLatLng(loc)
+      ));
+    });
+  }
+
+  Set<Marker> _createMarkers(List<Address> addressList) {
+    var markers = <Marker>{};
+    for (var address in addressList) {
+      markers.add(
+          Marker(
+            markerId: MarkerId(address.title),
+            position: _toLatLng(address.location),
+          )
+      );
+    }
+    return markers;
+  }
+
+  LatLng _toLatLng(Location loc) {
+    return LatLng(loc.latitude, loc.longitude);
   }
 }
