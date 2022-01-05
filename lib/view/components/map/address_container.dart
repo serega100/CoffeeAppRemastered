@@ -1,12 +1,12 @@
-import 'package:coffee_app_remastered/presenter/map/address/address.dart';
-import 'package:coffee_app_remastered/presenter/map/address/address_state.dart';
+import 'package:coffee_app_remastered/model/map/address/address.dart';
+import 'package:coffee_app_remastered/model/map/address/address_state.dart';
 import 'package:coffee_app_remastered/view/components/map/select_button.dart';
 import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AddressContainer extends StatefulWidget {
+class AddressContainer extends StatelessWidget {
   final Address address;
   final void Function(Address) onPressed;
   final void Function(Address) onSelected;
@@ -21,16 +21,11 @@ class AddressContainer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AddressContainerState createState() => _AddressContainerState();
-}
-
-class _AddressContainerState extends State<AddressContainer> {
-  @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => widget.onPressed(widget.address),
+        onTap: () => onPressed(address),
         child: Container(
           padding: AddressContainer.padding,
           child: IntrinsicHeight(
@@ -41,7 +36,7 @@ class _AddressContainerState extends State<AddressContainer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.address.title,
+                      address.title,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
@@ -49,15 +44,15 @@ class _AddressContainerState extends State<AddressContainer> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      widget.address.subtitle,
+                      address.subtitle,
                       style: TextStyle(
                         fontSize: 14,
                       ),
                     ),
-                    Spacer(),
+                    const SizedBox(height: 5),
                     _AddressStateWidget(
-                      state: widget.address.state,
-                      endTime: widget.address.endStateTime,
+                      state: address.state,
+                      endTime: address.endStateTime,
                     )
                   ],
                 ),
@@ -66,13 +61,14 @@ class _AddressContainerState extends State<AddressContainer> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SelectButton(
-                      selected: widget.address.isSelected,
-                      onSelected: () => widget.onSelected(widget.address),
+                      selected: address.isSelected,
+                      onSelected: () => onSelected(address),
                     ),
                     const SizedBox(height: 5),
-                    if (widget.address.distance != null)
+                    Spacer(),
+                    if (address.distance != null)
                       Text(
-                        ViewUtils.beautifyDistance(widget.address.distance!),
+                        ViewUtils.beautifyDistance(address.distance!),
                         style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xFF868686),

@@ -1,4 +1,4 @@
-import 'package:coffee_app_remastered/presenter/map/address/address.dart';
+import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/view/components/map/address_container.dart';
 import 'package:coffee_app_remastered/view/components/map/sheet_line.dart';
 import 'package:coffee_app_remastered/view/components/map/shimmer_address_container.dart';

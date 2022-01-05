@@ -1,22 +1,64 @@
-import 'package:coffee_app_remastered/presenter/map/address/address_state.dart';
-import 'package:coffee_app_remastered/presenter/map/location.dart';
+import 'package:coffee_app_remastered/model/map/address/address.dart';
+import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
+import 'package:coffee_app_remastered/model/map/address/address_state.dart';
+import 'package:coffee_app_remastered/model/map/location.dart';
+import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
+import 'package:coffee_app_remastered/presenter/map/user_location_manager.dart';
+import 'package:coffee_app_remastered/view/pages/i_map_view.dart';
 
-import 'address/address.dart';
+class MapPagePresenter implements IMapPresenter {
+  late AddressHolder _addressHolder;
+  late IMapView _view;
 
-class MapPagePresenter {
-  Location getDefaultLocation() {
-    var ekbCenter = Location(latitude: 56.8319362, longitude: 60.609593);
-    return ekbCenter;
+  final _userLocationManager = UserLocationManager();
+
+  @override
+  Location defaultLocation =
+      Location(latitude: 56.8319362, longitude: 60.609593);
+
+  @override
+  void onPressAddress(Address address) {
+    _view.showLocation(address.location);
   }
 
-  Future<Location?> getUserLocation() async {
-    return await Location.getUserLocation();
+  @override
+  void onSelectAddress(Address selectedAddress) {
+    _addressHolder.selected = selectedAddress;
+    _view.updateAddressHolder();
   }
 
-  Future<List<Address>> getAddressList() async {
+  @override
+  set mapView(IMapView view) {
+    _view = view;
+
+    _loadAddressHolder().then((value) {
+      _updateDistances().then((success) {
+        if (success) _addressHolder.sortByDistance();
+        _view.addressHolder = _addressHolder;
+      });
+    });
+
+    _userLocationManager.getUserLocation().then((loc) {
+      if (loc != null) {
+        _view.showLocation(loc);
+      }
+    });
+  }
+
+  Future<bool> _updateDistances() async {
+    var userLoc = await _userLocationManager.getUserLocation();
+    if (userLoc != null) {
+      _addressHolder
+          .setDistances((address) => address.location.getDistanceTo(userLoc));
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> _loadAddressHolder() async {
     await Future.delayed(const Duration(seconds: 3)); // todo debug
-    return <Address>[
-      await Address.create(
+    _addressHolder = AddressHolder(<Address>[
+      Address(
         title: "ул. Малышева д. 113",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -27,7 +69,7 @@ class MapPagePresenter {
         endStateTime: DateTime(1, 1, 1, 23, 0),
         isSelected: true,
       ),
-      await Address.create(
+      Address(
         title: "ул. Мира д. 19 (этаж 1)",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -38,7 +80,7 @@ class MapPagePresenter {
         endStateTime: DateTime(1, 1, 1, 23, 0),
         isSelected: false,
       ),
-      await Address.create(
+      Address(
         title: "просп. Ленина, д. 36",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -49,6 +91,6 @@ class MapPagePresenter {
         endStateTime: DateTime(1, 1, 1, 23, 0),
         isSelected: false,
       ),
-    ];
+    ]);
   }
 }
