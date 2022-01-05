@@ -47,7 +47,7 @@ class AddressDraggableSheet extends StatelessWidget {
                   child: ListView(
                     controller: scrollController,
                     children: (addressList == null) ?
-                    _getShimmerSheetContents() :
+                    _getShimmerContainers(4) :
                     _createSheetContents(addressList!),
                   ),
                 ),
@@ -76,12 +76,11 @@ class AddressDraggableSheet extends StatelessWidget {
     );
   }
 
-  List<Widget> _getShimmerSheetContents() {
-    return <Widget>[
-      const ShimmerAddressContainer(),
-      const ShimmerAddressContainer(),
-      const ShimmerAddressContainer(),
-      const ShimmerAddressContainer(),
-    ];
+  List<ShimmerAddressContainer> _getShimmerContainers(int count) {
+    var list = <ShimmerAddressContainer>[];
+    for (int i = 0; i < count; i++) {
+      list.add(const ShimmerAddressContainer());
+    }
+    return list;
   }
 }
