@@ -4,13 +4,15 @@ import 'package:coffee_app_remastered/presenter/map/location.dart';
 import 'address/address.dart';
 
 class MapPagePresenter {
-  // todo make async loading with shimmer effect in view
-  Location getInitialLocation() {
+  Location getDefaultLocation() {
     var ekbCenter = Location(latitude: 56.8319362, longitude: 60.609593);
     return ekbCenter;
   }
 
-  // todo make async loading with shimmer effect in view
+  Future<Location?> getUserLocation() async {
+    return await Location.getUserLocation();
+  }
+
   Future<List<Address>> getAddressList() async {
     await Future.delayed(const Duration(seconds: 3)); // todo debug
     return <Address>[

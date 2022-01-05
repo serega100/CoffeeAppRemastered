@@ -5,7 +5,7 @@ class Address {
   final String title;
   final String subtitle;
   final Location location;
-  final double distance;
+  final double? distance;
   AddressState _state;
   DateTime _endStateTime;
   bool _isSelected;

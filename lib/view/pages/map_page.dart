@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:coffee_app_remastered/presenter/map/address/address.dart';
 import 'package:coffee_app_remastered/presenter/map/map_page_presenter.dart';
 import 'package:coffee_app_remastered/view/components/map/address_draggable_sheet.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
@@ -32,15 +35,51 @@ class MapPage extends StatefulWidget implements INavigationBarPage {
 }
 
 class _MapPageState extends State<MapPage> {
+  var _initilized = false;
+  var _addressesLoaded = false;
+
+  late final List<Address> _addressList;
+  final Completer<GoogleMapController> _mapControllerHolder = Completer();
+
+  void _init() {
+    widget.presenter.getAddressList().then((adrList) {
+      setState(() {
+        _addressList = adrList;
+        _addressesLoaded = true;
+      });
+    });
+
+    widget.presenter.getUserLocation().then((userLoc) {
+      if (userLoc != null) {
+        _mapControllerHolder.future.then((controller) {
+          controller.moveCamera(CameraUpdate.newLatLng(
+              LatLng(userLoc.latitude, userLoc.longitude)
+          ));
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var initLoc = widget.presenter.getInitialLocation();
+    if (!_initilized) {
+      _initilized = true;
+      _init();
+    }
+
     return Stack(
       children: [
         GoogleMap(
-            initialCameraPosition: CameraPosition(
-                target: LatLng(initLoc.latitude, initLoc.longitude),
-                zoom: 14.0)),
+          compassEnabled: false,
+          mapToolbarEnabled: false,
+          zoomControlsEnabled: false,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          initialCameraPosition: _getDefaultCameraPosition(14.00),
+          onMapCreated: (mapController) {
+            _mapControllerHolder.complete(mapController);
+          },
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -51,11 +90,25 @@ class _MapPageState extends State<MapPage> {
           ],
         ),
         AddressDraggableSheet(
-          futureAddressList: widget.presenter.getAddressList(),
-          onAddressPressed: (address) => {},
-          onAddressSelected: (address) => {},
+          addressList: (_addressesLoaded) ? _addressList : null,
+          onAddressPressed: (address) =>
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: Duration(seconds: 1),
+            content: Text('Tap on ${address.title}'),
+          )),
+          onAddressSelected: (address) =>
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Select ${address.title}'),
+          )),
         ),
       ],
     );
+  }
+
+  CameraPosition _getDefaultCameraPosition(double zoom) {
+    var defaultLoc = widget.presenter.getDefaultLocation();
+    var latitude = defaultLoc.latitude;
+    var longitude = defaultLoc.longitude;
+    return CameraPosition(target: LatLng(latitude, longitude), zoom: zoom);
   }
 }

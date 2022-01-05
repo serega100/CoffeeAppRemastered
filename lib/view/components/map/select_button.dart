@@ -17,7 +17,9 @@ class SelectButton extends StatelessWidget {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(primary: ViewSettings.selectedColor),
         onPressed: () => onSelected(),
-        child: Text("Выбрать"),
+        child: Text("Выбрать", style: TextStyle(
+          fontSize: 14,
+        ),),
       );
     } else {
       return ElevatedButton(

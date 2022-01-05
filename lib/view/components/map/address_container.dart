@@ -2,6 +2,7 @@ import 'package:coffee_app_remastered/presenter/map/address/address.dart';
 import 'package:coffee_app_remastered/presenter/map/address/address_state.dart';
 import 'package:coffee_app_remastered/view/components/map/select_button.dart';
 import 'package:coffee_app_remastered/view/view_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,7 +11,7 @@ class AddressContainer extends StatefulWidget {
   final void Function(Address) onPressed;
   final void Function(Address) onSelected;
 
-  // todo add padding
+  static const padding = EdgeInsets.symmetric(vertical: 10, horizontal: 15);
 
   const AddressContainer({
     required this.address,
@@ -26,46 +27,63 @@ class AddressContainer extends StatefulWidget {
 class _AddressContainerState extends State<AddressContainer> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => widget.onPressed(widget.address),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.address.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => widget.onPressed(widget.address),
+        child: Container(
+          padding: AddressContainer.padding,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.address.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      widget.address.subtitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    Spacer(),
+                    _AddressStateWidget(
+                      state: widget.address.state,
+                      endTime: widget.address.endStateTime,
+                    )
+                  ],
                 ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                widget.address.subtitle,
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 5),
-              _AddressStateWidget(
-                state: widget.address.state,
-                endTime: widget.address.endStateTime,
-              )
-            ],
+                Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SelectButton(
+                      selected: widget.address.isSelected,
+                      onSelected: () => widget.onSelected(widget.address),
+                    ),
+                    const SizedBox(height: 5),
+                    if (widget.address.distance != null)
+                      Text(
+                        ViewUtils.beautifyDistance(widget.address.distance!),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF868686),
+                        ),
+                      )
+                  ],
+                )
+              ],
+            ),
           ),
-          Spacer(),
-          Column(
-            children: [
-              SelectButton(
-                  selected: widget.address.isSelected,
-                  onSelected: () => widget.onSelected(widget.address),
-              ),
-              Spacer(),
-              Text(ViewUtils.beautifyDistance(widget.address.distance))
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
