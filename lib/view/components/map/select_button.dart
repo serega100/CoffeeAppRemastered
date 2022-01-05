@@ -13,20 +13,25 @@ class SelectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!selected) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: ViewSettings.selectedColor),
-        onPressed: () => onSelected(),
-        child: Text("Выбрать", style: TextStyle(
-          fontSize: 14,
-        ),),
-      );
+    if (selected) {
+      return _getClickableStar(ViewSettings.selectedColor, true, onSelected);
     } else {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: ViewSettings.unselectedColor),
-        onPressed: null,
-        child: Text("Выбрано"),
-      );
+      return _getClickableStar(ViewSettings.unselectedColor, false, onSelected);
     }
+  }
+
+  Widget _getClickableStar(
+      Color color, bool isFull, void Function() onPressed) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
+        child: Icon(
+          (isFull) ? Icons.star : Icons.star_border,
+          color: color,
+          size: 30.0,
+        ),
+      ),
+    );
   }
 }
