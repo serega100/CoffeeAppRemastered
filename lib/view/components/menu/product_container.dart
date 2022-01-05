@@ -6,14 +6,16 @@ import 'add_product_button.dart';
 class ProductContainer extends StatefulWidget {
   final ImageProvider image;
   final String title;
-  final String volume;
+  final String volumeString;
   final double price;
+  final void Function() onAdded;
 
   ProductContainer({
     required this.image,
     required this.title,
-    required this.volume,
+    required this.volumeString,
     required this.price,
+    required this.onAdded,
     Key? key
   }) : super(key: key);
 
@@ -44,7 +46,7 @@ class _ProductContainerState extends State<ProductContainer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-              Text(widget.volume, style: TextStyle(fontSize: 14, color: Color(0xFF868686)),),
+              Text(widget.volumeString, style: TextStyle(fontSize: 14, color: Color(0xFF868686)),),
               Padding(padding: EdgeInsets.symmetric(vertical: 5.0),),
               Text(ViewUtils.beautifyPrice(widget.price), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             ],

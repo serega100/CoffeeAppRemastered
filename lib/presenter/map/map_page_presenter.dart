@@ -4,7 +4,7 @@ import 'package:coffee_app_remastered/model/map/address/address_state.dart';
 import 'package:coffee_app_remastered/model/map/location.dart';
 import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
 import 'package:coffee_app_remastered/presenter/map/user_location_manager.dart';
-import 'package:coffee_app_remastered/view/pages/i_map_view.dart';
+import 'package:coffee_app_remastered/view/pages/map/i_map_view.dart';
 
 class MapPagePresenter implements IMapPresenter {
   late AddressHolder _addressHolder;

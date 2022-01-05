@@ -7,9 +7,10 @@ import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
 import 'package:coffee_app_remastered/view/components/map/address_draggable_sheet.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
 import 'package:coffee_app_remastered/view/components/page_typography.dart';
-import 'package:coffee_app_remastered/view/pages/i_map_view.dart';
+import 'package:coffee_app_remastered/view/pages/map/i_map_view.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
+import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -69,9 +70,8 @@ class _MapPageState extends State<MapPage> implements IMapView {
 
   @override
   showSelectedNotification(Address address) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Теперь ${address.title} ваш избранный ресторан"))
-    );
+    var msg = "Теперь ${address.title} ваш избранный ресторан";
+    ViewUtils.showSnackBarSuccessMessage(context, msg);
   }
 
   @override

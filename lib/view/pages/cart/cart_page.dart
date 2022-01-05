@@ -32,7 +32,10 @@ class _CartPageState extends State<CartPage> {
     return Container(
       margin: ViewSettings.pageMargin,
       child: Column(
-        children: [PageTitle("Корзина")],
+        children: [
+          PageTitle("Корзина"),
+
+        ],
       ),
     );
   }

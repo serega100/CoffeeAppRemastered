@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 class ShimmerBox extends StatelessWidget {
   final double? width;
   final double? height;
+  final BorderRadiusGeometry borderRadius;
 
-  const ShimmerBox({this.width, this.height, Key? key}) : super(key: key);
+  const ShimmerBox({
+    this.width,
+    this.height,
+    this.borderRadius = const BorderRadius.all(Radius.circular(15)),
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +20,8 @@ class ShimmerBox extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: Colors.black.withOpacity(0.04),
+        borderRadius: borderRadius,
+        color: Colors.black.withOpacity(0.04),
       ),
     );
   }

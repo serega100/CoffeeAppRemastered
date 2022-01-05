@@ -5,6 +5,9 @@ class ViewSettings {
   static const selectedColor = Color(0xFF27AE60);
   static const pageBackgroundColor = Color(0xffe5e5e5);
 
+  static const successColor = Color(0xFF27AE60);
+  static const failColor = Color(0xFFC0392B);
+
   static const defaultNavigationBarCornerColor = Colors.transparent;
 
   static const pageMargin = EdgeInsets.only(left: 15, right: 15, bottom: 20);
