@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
-// todo unit tests
 class ContentfulDataManager implements IGeneralDataManager {
   static const sourceId = "contentful_cdn";
   static const spaceId = "oc8psz0qxnw9";
@@ -35,12 +34,10 @@ class ContentfulDataManager implements IGeneralDataManager {
   Completer<MenuHolder> _menuHolderCompleter = Completer();
 
   @override
-  // TODO: implement addressHolderFuture
   Future<AddressHolder> get addressHolderFuture =>
       _addressHolderCompleter.future;
 
   @override
-  // TODO: implement menuHolderFuture
   Future<MenuHolder> get menuHolderFuture => _menuHolderCompleter.future;
 
   ContentfulDataManager() {
