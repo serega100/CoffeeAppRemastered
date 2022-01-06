@@ -16,9 +16,9 @@ class OpeningHours {
   });
 
   bool get isOpened {
-    var now = DateTime.now();
-    var openTime = DateTime(now.year, now.month, now.day, openHour, openMinute);
-    var closeTime = DateTime(now.year, now.month, now.day, closeHour, closeMinute);
+    var now = DateTime.now().toUtc();
+    var openTime = DateTime.utc(now.year, now.month, now.day, openHour, openMinute);
+    var closeTime = DateTime.utc(now.year, now.month, now.day, closeHour, closeMinute);
     return now.isAfter(openTime) && now.isBefore(closeTime);
   }
 
@@ -27,8 +27,8 @@ class OpeningHours {
   String get closeTimeString => getStringTime(closeHour, closeMinute);
 
   String getStringTime(int utcHour, int utcMinute) {
-    var now = DateTime.now();
-    var openTime = DateTime(now.year, now.month, now.day, utcHour, utcMinute);
+    var now = DateTime.now().toUtc();
+    var openTime = DateTime.utc(now.year, now.month, now.day, utcHour, utcMinute);
     var local = openTime.toLocal();
     return _hourMinuteFormat.format(local);
   }
