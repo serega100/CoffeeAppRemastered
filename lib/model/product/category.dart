@@ -1,5 +1,11 @@
-class Category {
-  String title;
+import 'package:coffee_app_remastered/data/id.dart';
 
-  Category(this.title);
+class Category {
+  final Id<Category> id;
+  final String title;
+
+  Category({
+    required this.id,
+    required this.title,
+  });
 }

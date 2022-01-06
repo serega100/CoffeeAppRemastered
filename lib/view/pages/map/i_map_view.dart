@@ -4,6 +4,7 @@ import 'package:coffee_app_remastered/model/map/location.dart';
 
 abstract class IMapView {
   set addressHolder(AddressHolder address);
+  set selectedAddress(Address address);
   updateAddressHolder();
   showLocation(Location location);
   showSelectedNotification(Address address);

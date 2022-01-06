@@ -1,13 +1,19 @@
+import 'package:coffee_app_remastered/data/id.dart';
 import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
 import 'package:coffee_app_remastered/model/map/address/address_state.dart';
 import 'package:coffee_app_remastered/model/map/location.dart';
+import 'package:coffee_app_remastered/model/map/personal_map_holder.dart';
 import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
 import 'package:coffee_app_remastered/presenter/map/user_location_manager.dart';
 import 'package:coffee_app_remastered/view/pages/map/i_map_view.dart';
 
 class MapPagePresenter implements IMapPresenter {
+  final Future<AddressHolder> _addressHolderFuture;
+  final Future<PersonalMapHolder> _personalHolderFuture;
+
   late AddressHolder _addressHolder;
+  late PersonalMapHolder _personalHolder;
   late IMapView _view;
 
   final _userLocationManager = UserLocationManager();
@@ -15,6 +21,12 @@ class MapPagePresenter implements IMapPresenter {
   @override
   Location defaultLocation =
       Location(latitude: 56.8319362, longitude: 60.609593);
+
+  MapPagePresenter({
+    required Future<AddressHolder> addressHolderFuture,
+    required Future<PersonalMapHolder> personalHolderFuture,
+  })  : _addressHolderFuture = addressHolderFuture,
+        _personalHolderFuture = personalHolderFuture;
 
   @override
   void onPressAddress(Address address) {
@@ -31,7 +43,7 @@ class MapPagePresenter implements IMapPresenter {
   set mapView(IMapView view) {
     _view = view;
 
-    _loadAddressHolder().then((value) {
+    _addressHolderFuture.then((value) {
       _updateDistances().then((success) {
         if (success) _addressHolder.sortByDistance();
         _view.addressHolder = _addressHolder;
@@ -59,6 +71,7 @@ class MapPagePresenter implements IMapPresenter {
     await Future.delayed(const Duration(seconds: 3)); // todo debug
     _addressHolder = AddressHolder(<Address>[
       Address(
+        id: Id(sourceId: "test", value: 0),
         title: "ул. Малышева д. 113",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -67,9 +80,9 @@ class MapPagePresenter implements IMapPresenter {
         ),
         state: AddressState.opened,
         endStateTime: DateTime(1, 1, 1, 23, 0),
-        isSelected: true,
       ),
       Address(
+        id: Id(sourceId: "test", value: 1),
         title: "ул. Мира д. 19 (этаж 1)",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -78,9 +91,9 @@ class MapPagePresenter implements IMapPresenter {
         ),
         state: AddressState.opened,
         endStateTime: DateTime(1, 1, 1, 23, 0),
-        isSelected: false,
       ),
       Address(
+        id: Id(sourceId: "test", value: 2),
         title: "просп. Ленина, д. 36",
         subtitle: "г. Екатеринбург",
         location: Location(
@@ -89,7 +102,6 @@ class MapPagePresenter implements IMapPresenter {
         ),
         state: AddressState.opened,
         endStateTime: DateTime(1, 1, 1, 23, 0),
-        isSelected: false,
       ),
     ]);
   }

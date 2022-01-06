@@ -1,3 +1,4 @@
+import 'package:coffee_app_remastered/data/id.dart';
 import 'package:coffee_app_remastered/model/cart_holder.dart';
 import 'package:coffee_app_remastered/model/menu_holder.dart';
 import 'package:coffee_app_remastered/model/product/category.dart';
@@ -22,9 +23,10 @@ Future<void> main() async {
   runApp(const CoffeeApp());
 }
 
-Product _getAmericano(Category category) {
+Product _getAmericano(Category category, int id) {
   final image = Image.asset("assets/test/americano.jpg").image;
   return Product(
+    id: Id(sourceId: "test", value: id),
     title: "Американо",
     category: category,
     volume: 250,
@@ -36,13 +38,15 @@ Product _getAmericano(Category category) {
 
 Future<MenuHolder> _getTestMenuHolderFuture() async {
   await Future.delayed(const Duration(seconds: 5));
-  var coffee = Category("Кофе");
-  var tea = Category("Чай");
-  var deserts = Category("Десерты");
+
+  var coffee = Category(title: "Кофе", id: Id(sourceId: "test", value: 0));
+  var tea = Category(title: "Чай", id: Id(sourceId: "test", value: 1));
+  var deserts = Category(title: "Десерты", id: Id(sourceId: "test", value: 2));
+
   return MenuHolder({
-    coffee: [_getAmericano(coffee), _getAmericano(coffee), _getAmericano(coffee)],
-    tea: [_getAmericano(coffee), _getAmericano(coffee), _getAmericano(coffee)],
-    deserts: [_getAmericano(coffee), _getAmericano(coffee), _getAmericano(coffee)],
+    coffee: [_getAmericano(coffee, 0), _getAmericano(coffee, 1), _getAmericano(coffee, 2)],
+    tea: [_getAmericano(coffee, 3), _getAmericano(coffee, 4), _getAmericano(coffee, 5)],
+    deserts: [_getAmericano(coffee, 6), _getAmericano(coffee, 7), _getAmericano(coffee, 8)],
   });
 }
 
