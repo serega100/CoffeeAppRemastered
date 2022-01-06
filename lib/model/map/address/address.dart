@@ -1,33 +1,21 @@
+import 'package:coffee_app_remastered/data/id.dart';
+import 'package:coffee_app_remastered/model/map/address/oppening_hours.dart';
 import 'package:coffee_app_remastered/model/map/location.dart';
 
-import 'address_state.dart';
-
 class Address {
+  final Id<Address> id;
   final String title;
   final String subtitle;
   final Location location;
+  final OpeningHours openingHours;
   double? distance;
-  AddressState _state;
-  DateTime _endStateTime;
-  bool _isSelected;
 
   Address({
+    required this.id,
     required this.title,
     required this.subtitle,
     required this.location,
-    required AddressState state,
-    required DateTime endStateTime,
-    required bool isSelected,
+    required this.openingHours,
     this.distance,
-  })  : _state = state,
-        _endStateTime = endStateTime,
-        _isSelected = isSelected;
-
-  AddressState get state => _state;
-  DateTime get endStateTime => _endStateTime;
-  bool get isSelected => _isSelected;
-
-  set isSelected(bool value) {
-    _isSelected = value;
-  }
+  });
 }

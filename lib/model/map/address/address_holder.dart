@@ -1,39 +1,24 @@
+import 'package:coffee_app_remastered/data/id.dart';
+
 import 'address.dart';
 
 class AddressHolder {
   List<Address> _list;
-  Address? _selected;
   bool _isDistanced = false;
 
-  AddressHolder(List<Address> list)
-      : _list = list,
-        _selected = _getSelected(list);
+  AddressHolder(List<Address> list) : _list = list;
 
   List<Address> get list => _list;
 
   bool get isDistanced => _isDistanced;
 
-  Address? get selected => _selected;
-
-  static Address? _getSelected(List<Address> list) {
-    Address? selected;
-    for (var address in list) {
-      if (address.isSelected) {
-        if (selected != null) throw ManySelectedException();
-        selected = address;
+  Address? getAddressById(Id<Address> id) {
+    for (var address in _list) {
+      if (address.id == id) {
+        return address;
       }
     }
-    return selected;
-  }
-
-  set selected(Address? address) {
-    for (var addr in list) {
-      addr.isSelected = false;
-    }
-    if (address != null) {
-      address.isSelected = true;
-    }
-    _selected = address;
+    return null;
   }
 
   void setDistances(double Function(Address) distanceFunction) {
@@ -45,9 +30,9 @@ class AddressHolder {
   }
 
   void sortByDistance() {
-    _list.sort((address1, address2) =>
-        address1.distance!.compareTo(address2.distance!));
+    if (isDistanced) {
+      _list.sort((address1, address2) =>
+          address1.distance!.compareTo(address2.distance!));
+    }
   }
 }
-
-class ManySelectedException implements Exception {}
