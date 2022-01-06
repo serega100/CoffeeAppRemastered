@@ -61,7 +61,7 @@ class _RoundedNavigationBarState extends State<RoundedNavigationBar> {
       Iterable<INavigationBarPage> pages) {
     var newList = <BottomNavigationBarItem>[];
     for (var page in pages) {
-      newList.add(BottomNavigationBarItem(icon: page.icon, label: ""));
+      newList.add(BottomNavigationBarItem(icon: page.icon, label: page.label));
     }
     return newList;
   }
