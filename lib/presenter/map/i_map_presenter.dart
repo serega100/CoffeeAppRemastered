@@ -7,5 +7,6 @@ abstract class IMapPresenter {
   Location get defaultLocation;
 
   void onSelectAddress(Address address);
+  void onUnselectAddress(Address address);
   void onPressAddress(Address address);
 }

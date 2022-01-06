@@ -21,7 +21,7 @@ class SelectButton extends StatelessWidget {
   }
 
   Widget _getClickableStar(
-      Color color, bool isFull, void Function() onPressed) {
+      Color color, bool isFull, void Function()? onPressed) {
     return Material(
       color: Colors.transparent,
       child: InkWell(

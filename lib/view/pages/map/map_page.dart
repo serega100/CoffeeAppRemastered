@@ -119,6 +119,7 @@ class _MapPageState extends State<MapPage> implements IMapView {
           addressList: _addressHolder?.list,
           onAddressPressed: widget.presenter.onPressAddress,
           onAddressSelected: widget.presenter.onSelectAddress,
+          onAddressUnselected: widget.presenter.onUnselectAddress,
           selectedAddressId: _personalMapHolder?.selectedAddressId,
         ),
       ],

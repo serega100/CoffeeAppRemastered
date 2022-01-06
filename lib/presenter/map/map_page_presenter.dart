@@ -38,6 +38,12 @@ class MapPagePresenter implements IMapPresenter {
   }
 
   @override
+  void onUnselectAddress(Address address) {
+    _personalHolder.selectedAddressId = null;
+    _view.updatePersonalMapHolder();
+  }
+
+  @override
   set mapView(IMapView view) {
     _view = view;
 

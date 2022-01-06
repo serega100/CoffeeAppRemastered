@@ -10,12 +10,14 @@ class AddressDraggableSheet extends StatelessWidget {
   final List<Address>? addressList;
   final Function(Address) onAddressPressed;
   final Function(Address) onAddressSelected;
+  final Function(Address) onAddressUnselected;
   final Id<Address>? selectedAddressId;
 
   const AddressDraggableSheet({
     required this.addressList,
     required this.onAddressPressed,
     required this.onAddressSelected,
+    required this.onAddressUnselected,
     required this.selectedAddressId,
     Key? key,
   }) : super(key: key);
@@ -76,7 +78,7 @@ class AddressDraggableSheet extends StatelessWidget {
     return AddressContainer(
       address: address,
       onPressed: onAddressPressed,
-      onSelected: onAddressSelected,
+      onSelected: (!selected) ? onAddressSelected : onAddressUnselected,
       selected: selected,
     );
   }
