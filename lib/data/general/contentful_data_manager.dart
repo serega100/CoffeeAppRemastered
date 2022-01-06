@@ -30,8 +30,8 @@ class ContentfulDataManager implements IGeneralDataManager {
     "product": Product,
   };
 
-  Completer<AddressHolder> _addressHolderCompleter = Completer();
-  Completer<MenuHolder> _menuHolderCompleter = Completer();
+  final Completer<AddressHolder> _addressHolderCompleter = Completer();
+  final Completer<MenuHolder> _menuHolderCompleter = Completer();
 
   @override
   Future<AddressHolder> get addressHolderFuture =>
@@ -135,8 +135,7 @@ class ContentfulDataManager implements IGeneralDataManager {
     return map;
   }
 
-  Product _parseProduct(dynamic itemJson,
-      List<Category> categoryList,
+  Product _parseProduct(dynamic itemJson, List<Category> categoryList,
       Map<String, ImageProvider> imageMap) {
     var id = Id<Product>(
       sourceId: sourceId,
@@ -197,9 +196,7 @@ class ContentfulDataManager implements IGeneralDataManager {
       if (!type.contains("image")) continue;
 
       var strUrl = assetJson["fields"]["file"]["url"] as String;
-      var image = Image
-          .network(strUrl)
-          .image;
+      var image = Image.network("https:" + strUrl).image;
       map[id] = image;
     }
 

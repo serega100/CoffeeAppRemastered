@@ -1,13 +1,12 @@
-import 'package:coffee_app_remastered/data/general/i_general_data_manager.dart';
 import 'package:coffee_app_remastered/model/cart_holder.dart';
 import 'package:coffee_app_remastered/model/map/personal_map_holder.dart';
+import 'package:coffee_app_remastered/model/menu_holder.dart';
 
 abstract class IPersonalDataManager {
-  Future<CartHolder> get cartHolderFuture;
-  Future<PersonalMapHolder> get personalMapHolderFuture;
+  Future<CartHolder> getCartHolderFuture(Future<MenuHolder> menuHolderFuture);
+  Future<PersonalMapHolder> getPersonalMapHolderFuture();
   // todo add discount personal models
 
-  set generalDataManager(IGeneralDataManager dataManager);
-  set cartHolder(CartHolder holder);
-  set personalMapHolder(PersonalMapHolder holder);
+  Future<void> setCartHolder(CartHolder holder);
+  Future<void> setPersonalMapHolder(PersonalMapHolder holder);
 }

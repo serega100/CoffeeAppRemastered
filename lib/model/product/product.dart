@@ -21,4 +21,11 @@ class Product {
     required this.price,
     required this.image,
   });
+
+  dynamic toLocalJson() {
+    var jsonMap = <String, dynamic>{
+      "id": id.toLocalJson(),
+    };
+    return jsonMap;
+  }
 }
