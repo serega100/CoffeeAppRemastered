@@ -1,15 +1,15 @@
 import 'package:coffee_app_remastered/model/map/address/address.dart';
-import 'package:coffee_app_remastered/model/map/address/address_state.dart';
+import 'package:coffee_app_remastered/model/map/address/oppening_hours.dart';
 import 'package:coffee_app_remastered/view/components/map/select_button.dart';
 import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class AddressContainer extends StatelessWidget {
   final Address address;
   final void Function(Address) onPressed;
   final void Function(Address) onSelected;
+  final bool selected;
 
   static const padding = EdgeInsets.symmetric(vertical: 10, horizontal: 15);
 
@@ -17,6 +17,7 @@ class AddressContainer extends StatelessWidget {
     required this.address,
     required this.onPressed,
     required this.onSelected,
+    required this.selected,
     Key? key,
   }) : super(key: key);
 
@@ -51,8 +52,7 @@ class AddressContainer extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     _AddressStateWidget(
-                      state: address.state,
-                      endTime: address.endStateTime,
+                      openingHours: address.openingHours,
                     )
                   ],
                 ),
@@ -61,7 +61,7 @@ class AddressContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SelectButton(
-                      selected: address.isSelected,
+                      selected: selected,
                       onSelected: () => onSelected(address),
                     ),
                     const SizedBox(height: 5),
@@ -86,48 +86,41 @@ class AddressContainer extends StatelessWidget {
 }
 
 class _AddressStateWidget extends StatelessWidget {
-  final hourMinuteFormat = DateFormat('HH:mm');
-
-  final AddressState state;
-  final DateTime endTime;
+  final OpeningHours openingHours;
 
   _AddressStateWidget({
-    required this.state,
-    required this.endTime,
+    required this.openingHours,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    switch (state) {
-      case AddressState.opened:
-        return Text(
-          "Открыто до ${hourMinuteFormat.format(endTime)}",
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF868686),
-          ),
-        );
-      case AddressState.closed:
-        return RichText(
-          text: TextSpan(
-              style: const TextStyle(
-                fontSize: 14,
-                color: Color(0xFF868686),
+    if (openingHours.isOpened) {
+      return Text(
+        "Открыто до ${openingHours.closeTimeString}",
+        style: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFF868686),
+        ),
+      );
+    } else {
+      return RichText(
+        text: TextSpan(
+            style: const TextStyle(
+              fontSize: 14,
+              color: Color(0xFF868686),
+            ),
+            children: <TextSpan>[
+              const TextSpan(
+                  text: "Закрыто",
+                  style: TextStyle(
+                    color: Color(0xFFC0392B),
+                  )),
+              TextSpan(
+                text: " • Откроется в ${openingHours.openTimeString}",
               ),
-              children: <TextSpan>[
-                const TextSpan(
-                    text: "Закрыто",
-                    style: TextStyle(
-                      color: Color(0xFFC0392B),
-                    )),
-                TextSpan(
-                  text: " • Откроется в ${hourMinuteFormat.format(endTime)}",
-                ),
-              ]),
-        );
-      default:
-        throw Exception("State $state can't be handled by AddressStateWidget");
+            ]),
+      );
     }
   }
 }

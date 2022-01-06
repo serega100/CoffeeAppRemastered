@@ -1,3 +1,4 @@
+import 'package:coffee_app_remastered/data/id.dart';
 import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/view/components/map/address_container.dart';
 import 'package:coffee_app_remastered/view/components/map/sheet_line.dart';
@@ -9,11 +10,13 @@ class AddressDraggableSheet extends StatelessWidget {
   final List<Address>? addressList;
   final Function(Address) onAddressPressed;
   final Function(Address) onAddressSelected;
+  final Id<Address>? selectedAddressId;
 
   const AddressDraggableSheet({
     required this.addressList,
     required this.onAddressPressed,
     required this.onAddressSelected,
+    required this.selectedAddressId,
     Key? key,
   }) : super(key: key);
 
@@ -48,7 +51,7 @@ class AddressDraggableSheet extends StatelessWidget {
                     controller: scrollController,
                     children: (addressList == null) ?
                     _getShimmerContainers(4) :
-                    _createSheetContents(addressList!),
+                    _createSheetContents(addressList!, selectedAddressId),
                   ),
                 ),
               ],
@@ -57,22 +60,24 @@ class AddressDraggableSheet extends StatelessWidget {
         });
   }
 
-  List<Widget> _createSheetContents(List<Address> addressList) {
+  List<Widget> _createSheetContents(List<Address> addressList, Id<Address>? selectedId) {
     var contents = <Widget>[];
     assert(addressList.isNotEmpty);
 
     for (var address in addressList) {
-      contents.add(_createContainer(address));
+      var selected = (selectedId != null) && (address.id == selectedId);
+      contents.add(_createContainer(address, selected));
     }
 
     return contents;
   }
 
-  AddressContainer _createContainer(Address address) {
+  AddressContainer _createContainer(Address address, bool selected) {
     return AddressContainer(
       address: address,
       onPressed: onAddressPressed,
       onSelected: onAddressSelected,
+      selected: selected,
     );
   }
 

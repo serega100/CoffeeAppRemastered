@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
 import 'package:coffee_app_remastered/model/map/location.dart';
+import 'package:coffee_app_remastered/model/map/personal_map_holder.dart';
 import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
 import 'package:coffee_app_remastered/view/components/map/address_draggable_sheet.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
@@ -40,6 +41,8 @@ class MapPage extends StatefulWidget implements INavigationBarPage {
 
 class _MapPageState extends State<MapPage> implements IMapView {
   AddressHolder? _addressHolder;
+  PersonalMapHolder? _personalMapHolder;
+
   var _markers = <Marker>{};
   final Completer<GoogleMapController> _mapControllerHolder = Completer();
 
@@ -58,6 +61,19 @@ class _MapPageState extends State<MapPage> implements IMapView {
   updateAddressHolder() {
     setState(() {
       _markers = _createMarkers(_addressHolder!.list);
+    });
+  }
+
+  @override
+  set personalMapHolder(PersonalMapHolder holder) {
+    _personalMapHolder = holder;
+    updatePersonalMapHolder();
+  }
+
+  @override
+  updatePersonalMapHolder() {
+    setState(() {
+      // do nothing
     });
   }
 
@@ -103,6 +119,7 @@ class _MapPageState extends State<MapPage> implements IMapView {
           addressList: _addressHolder?.list,
           onAddressPressed: widget.presenter.onPressAddress,
           onAddressSelected: widget.presenter.onSelectAddress,
+          selectedAddressId: _personalMapHolder?.selectedAddressId,
         ),
       ],
     );

@@ -4,17 +4,17 @@ import 'package:coffee_app_remastered/model/map/address/address.dart';
 
 class PersonalMapHolder {
   final IPersonalDataManager _dataManager;
-  Id<Address> _selectedAddressId;
+  Id<Address>? _selectedAddressId;
 
   PersonalMapHolder({
     required IPersonalDataManager dataManager,
-    required Address selectedAddress,
+    required Id<Address> selectedAddress,
   })  : _dataManager = dataManager,
         _selectedAddressId = selectedAddress;
 
-  Address get selectedAddress => _selectedAddressId;
+  Id<Address>? get selectedAddressId => _selectedAddressId;
 
-  set selectedAddress(Address address) {
+  set selectedAddressId(Id<Address>? address) {
     _selectedAddressId = address;
     _dataManager.personalMapHolder = this;
   }

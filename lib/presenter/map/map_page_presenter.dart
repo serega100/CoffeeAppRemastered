@@ -1,7 +1,5 @@
-import 'package:coffee_app_remastered/data/id.dart';
 import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
-import 'package:coffee_app_remastered/model/map/address/address_state.dart';
 import 'package:coffee_app_remastered/model/map/location.dart';
 import 'package:coffee_app_remastered/model/map/personal_map_holder.dart';
 import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
@@ -35,15 +33,16 @@ class MapPagePresenter implements IMapPresenter {
 
   @override
   void onSelectAddress(Address selectedAddress) {
-    _addressHolder.selected = selectedAddress;
-    _view.updateAddressHolder();
+    _personalHolder.selectedAddressId = selectedAddress.id;
+    _view.updatePersonalMapHolder();
   }
 
   @override
   set mapView(IMapView view) {
     _view = view;
 
-    _addressHolderFuture.then((value) {
+    _addressHolderFuture.then((holder) {
+      _addressHolder = holder;
       _updateDistances().then((success) {
         if (success) _addressHolder.sortByDistance();
         _view.addressHolder = _addressHolder;
@@ -55,6 +54,11 @@ class MapPagePresenter implements IMapPresenter {
         _view.showLocation(loc);
       }
     });
+
+    _personalHolderFuture.then((holder) {
+      _personalHolder = holder;
+      _view.personalMapHolder = holder;
+    });
   }
 
   Future<bool> _updateDistances() async {
@@ -65,44 +69,5 @@ class MapPagePresenter implements IMapPresenter {
       return true;
     }
     return false;
-  }
-
-  Future<void> _loadAddressHolder() async {
-    await Future.delayed(const Duration(seconds: 3)); // todo debug
-    _addressHolder = AddressHolder(<Address>[
-      Address(
-        id: Id(sourceId: "test", value: 0),
-        title: "ул. Малышева д. 113",
-        subtitle: "г. Екатеринбург",
-        location: Location(
-          latitude: 56.839821,
-          longitude: 60.645451,
-        ),
-        state: AddressState.opened,
-        endStateTime: DateTime(1, 1, 1, 23, 0),
-      ),
-      Address(
-        id: Id(sourceId: "test", value: 1),
-        title: "ул. Мира д. 19 (этаж 1)",
-        subtitle: "г. Екатеринбург",
-        location: Location(
-          latitude: 56.84392,
-          longitude: 60.65391,
-        ),
-        state: AddressState.opened,
-        endStateTime: DateTime(1, 1, 1, 23, 0),
-      ),
-      Address(
-        id: Id(sourceId: "test", value: 2),
-        title: "просп. Ленина, д. 36",
-        subtitle: "г. Екатеринбург",
-        location: Location(
-          latitude: 56.83859219356317,
-          longitude: 60.609320334756056,
-        ),
-        state: AddressState.opened,
-        endStateTime: DateTime(1, 1, 1, 23, 0),
-      ),
-    ]);
   }
 }
