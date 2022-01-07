@@ -2,6 +2,7 @@ import 'package:coffee_app_remastered/data/general/contentful_data_manager.dart'
 import 'package:coffee_app_remastered/data/general/i_general_data_manager.dart';
 import 'package:coffee_app_remastered/data/personal/i_personal_data_manager.dart';
 import 'package:coffee_app_remastered/data/personal/local_data_manager.dart';
+import 'package:coffee_app_remastered/presenter/cart/cart_presenter.dart';
 import 'package:coffee_app_remastered/presenter/map/map_page_presenter.dart';
 import 'package:coffee_app_remastered/presenter/menu/menu_presenter.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
@@ -44,15 +45,16 @@ final _pages = <INavigationBarPage>[
   ),
   MapPage(
     icon: NavigationIcon(Icons.map),
+    label: "Карта",
     presenter: MapPagePresenter(
       addressHolderFuture: generalData.addressHolderFuture,
       personalHolderFuture: personalData.getPersonalMapHolderFuture(),
     ),
-    label: "Карта",
   ),
   CartPage(
     icon: NavigationIcon(Icons.shopping_cart),
     label: "Корзина",
+    presenter: CartPresenter(),
   ),
 ];
 

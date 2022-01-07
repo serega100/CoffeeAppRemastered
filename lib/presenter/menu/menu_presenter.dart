@@ -1,4 +1,4 @@
-import 'package:coffee_app_remastered/model/cart_holder.dart';
+import 'package:coffee_app_remastered/model/cart/cart_holder.dart';
 import 'package:coffee_app_remastered/model/menu_holder.dart';
 import 'package:coffee_app_remastered/model/product/product.dart';
 import 'package:coffee_app_remastered/presenter/menu/i_menu_presenter.dart';
