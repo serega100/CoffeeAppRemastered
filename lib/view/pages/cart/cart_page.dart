@@ -54,12 +54,13 @@ class _CartPageState extends State<CartPage> implements ICartView {
 
   @override
   void showRemovedNotification(CartItem item) {
-    ViewUtils.showDefaultSnackBarMessage(context, "Продукт ${item.product.title} удален из Корзины");
+    ViewUtils.showDefaultSnackBarMessage(context, "Продукт \"${item.product.title}\" удален из Корзины");
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_holder == null) return const EmptyCartPage();
+    if (_holder == null) return Container();
+    if (_holder!.getItems().isEmpty) return const EmptyCartPage();
     return Stack(
       children: [
         SingleChildScrollView(
