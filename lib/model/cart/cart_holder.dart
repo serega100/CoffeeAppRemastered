@@ -23,9 +23,13 @@ class CartHolder {
   String get stringSum => ViewUtils.beautifyPrice(sum);
 
   void addItem(CartItem item) {
-    _countSum();
     _itemList.add(item);
+    _countSum();
     _dataManager.setCartHolder(this);
+  }
+
+  CartItem getItemById(int itemId) {
+    return _itemList[itemId];
   }
 
   void removeItem(int itemId) {

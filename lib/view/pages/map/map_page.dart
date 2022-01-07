@@ -87,7 +87,7 @@ class _MapPageState extends State<MapPage> implements IMapView {
   @override
   showSelectedNotification(Address address) {
     var msg = "Теперь ${address.title} ваш избранный ресторан";
-    ViewUtils.showSnackBarSuccessMessage(context, msg);
+    ViewUtils.showSuccessSnackBarMessage(context, msg);
   }
 
   @override

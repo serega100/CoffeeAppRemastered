@@ -61,7 +61,7 @@ class _MenuPageState extends State<MenuPage> implements IMenuView {
   @override
   void showAddedNotification(Product product) {
     var msg = "Товар \"${product.title}\" добавлен в корзину";
-    ViewUtils.showSnackBarFailMessage(context, msg);
+    ViewUtils.showSuccessSnackBarMessage(context, msg);
   }
 
   @override

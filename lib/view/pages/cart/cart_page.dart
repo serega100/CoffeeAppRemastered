@@ -9,6 +9,7 @@ import 'package:coffee_app_remastered/view/pages/cart/empty_cart_page.dart';
 import 'package:coffee_app_remastered/view/pages/cart/i_cart_view.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
+import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget implements INavigationBarPage {
@@ -52,6 +53,11 @@ class _CartPageState extends State<CartPage> implements ICartView {
   }
 
   @override
+  void showRemovedNotification(CartItem item) {
+    ViewUtils.showDefaultSnackBarMessage(context, "Продукт ${item.product.title} удален из Корзины");
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (_holder == null) return const EmptyCartPage();
     return Stack(
@@ -63,29 +69,16 @@ class _CartPageState extends State<CartPage> implements ICartView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PageTitle("Корзина"),
-                Wrap(
-                  runSpacing: 15,
-                  children: _getContainers(
-                      items: _holder!.getItems(),
-                      onRemoved: widget.presenter.onItemRemoved),
-                  // children: [
-                  //   CartItemContainer(
-                  //     onRemoved: () => print("removed"),
-                  //     item: CartItem(
-                  //       product: Product(
-                  //         id: Id(sourceId: "test", value: 0),
-                  //         title: "Американо",
-                  //         category: Category(
-                  //             id: Id(sourceId: "test", value: 1),
-                  //             title: "Кофе"),
-                  //         volume: 250,
-                  //         volumeUnits: VolumeUnits.grams,
-                  //         price: 200,
-                  //         image: Image.asset("assets/test/americano.jpg").image,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ],
+                Column(
+                  children: [
+                    Wrap(
+                      runSpacing: 15,
+                      children: _getContainers(
+                          items: _holder!.getItems(),
+                          onRemoved: widget.presenter.onItemRemoved),
+                    ),
+                    const SizedBox(height: 80),
+                  ],
                 ),
               ],
             ),
@@ -104,13 +97,15 @@ class _CartPageState extends State<CartPage> implements ICartView {
 
   List<CartItemContainer> _getContainers({
     required List<CartItem> items,
-    required void Function(CartItem) onRemoved,
+    required void Function(int) onRemoved,
   }) {
-    return items
-        .map(
-          (item) =>
-              CartItemContainer(item: item, onRemoved: () => onRemoved(item)),
-        )
-        .toList();
+    var containers = <CartItemContainer>[];
+    var i = 0;
+    for (var item in items) {
+      var itemId = i;
+      containers.add(CartItemContainer(item: item, onRemoved: () => onRemoved(itemId)));
+      i++;
+    }
+    return containers;
   }
 }

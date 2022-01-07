@@ -49,16 +49,22 @@ class ViewUtils {
     }
   }
 
-  static void showSnackBarSuccessMessage(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: ViewSettings.successColor,
-      content: Text(message),
-    ));
+  static void showDefaultSnackBarMessage(BuildContext context, String message) {
+    _showSnackBarMessage(context, message, null);
   }
 
-  static void showSnackBarFailMessage(BuildContext context, String message) {
+  static void showSuccessSnackBarMessage(BuildContext context, String message) {
+    _showSnackBarMessage(context, message, ViewSettings.successColor);
+  }
+
+  static void showFailSnackBarMessage(BuildContext context, String message) {
+    _showSnackBarMessage(context, message, ViewSettings.failColor);
+  }
+
+  static void _showSnackBarMessage(BuildContext context, String message, Color? color) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: ViewSettings.failColor,
+      duration: Duration(seconds: 2),
+      backgroundColor: color,
       content: Text(message),
     ));
   }

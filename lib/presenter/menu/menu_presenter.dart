@@ -1,4 +1,5 @@
 import 'package:coffee_app_remastered/model/cart/cart_holder.dart';
+import 'package:coffee_app_remastered/model/cart/cart_item.dart';
 import 'package:coffee_app_remastered/model/menu_holder.dart';
 import 'package:coffee_app_remastered/model/product/product.dart';
 import 'package:coffee_app_remastered/presenter/menu/i_menu_presenter.dart';
@@ -9,8 +10,6 @@ class MenuPresenter implements IMenuPresenter {
   final Future<CartHolder> _cartHolderFuture;
 
   late IMenuView _view;
-  late MenuHolder? _menuHolder;
-  late CartHolder? _cartHolder;
 
   MenuPresenter({
     required Future<MenuHolder> menuHolderFuture,
@@ -22,17 +21,16 @@ class MenuPresenter implements IMenuPresenter {
   set menuView(IMenuView view) {
     _view = view;
     _menuHolderFuture.then((holder) {
-      _menuHolder = holder;
       view.menuHolder = holder;
-    });
-    _cartHolderFuture.then((holder) {
-      _cartHolder = holder;
     });
   }
 
   @override
   void onProductAdded(Product product) {
-    // todo implement
-    // _cartHolder!.addItem(product);
+    print("Product Added event called");
+    _cartHolderFuture.then((holder) {
+      holder.addItem(CartItem(product: product));
+      _view.showAddedNotification(product);
+    });
   }
 }

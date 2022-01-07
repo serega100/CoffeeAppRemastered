@@ -52,7 +52,7 @@ class _ProductContainerState extends State<ProductContainer> {
             ],
           ),
           Spacer(),
-          AddProductButton(onTap: () => {}),
+          AddProductButton(onTap: widget.onAdded),
         ],
       ),
     );

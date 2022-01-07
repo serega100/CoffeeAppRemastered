@@ -2,6 +2,8 @@ import 'package:coffee_app_remastered/data/general/contentful_data_manager.dart'
 import 'package:coffee_app_remastered/data/general/i_general_data_manager.dart';
 import 'package:coffee_app_remastered/data/personal/i_personal_data_manager.dart';
 import 'package:coffee_app_remastered/data/personal/local_data_manager.dart';
+import 'package:coffee_app_remastered/model/cart/cart_holder.dart';
+import 'package:coffee_app_remastered/model/menu_holder.dart';
 import 'package:coffee_app_remastered/presenter/cart/cart_presenter.dart';
 import 'package:coffee_app_remastered/presenter/map/map_page_presenter.dart';
 import 'package:coffee_app_remastered/presenter/menu/menu_presenter.dart';
@@ -25,6 +27,9 @@ Future<void> main() async {
 final IPersonalDataManager personalData = LocalDataManager();
 final IGeneralDataManager generalData = ContentfulDataManager();
 
+final Future<MenuHolder> menuHolderFuture = generalData.menuHolderFuture;
+final Future<CartHolder> cartHolderFuture = personalData.getCartHolderFuture(menuHolderFuture);
+
 final _pages = <INavigationBarPage>[
   HomePage(
     icon: NavigationIcon(Icons.home),
@@ -36,12 +41,11 @@ final _pages = <INavigationBarPage>[
   ),
   MenuPage(
     icon: NavigationIcon(Icons.menu),
-    presenter: MenuPresenter(
-      menuHolderFuture: generalData.menuHolderFuture,
-      cartHolderFuture:
-          personalData.getCartHolderFuture(generalData.menuHolderFuture),
-    ),
     label: "Меню",
+    presenter: MenuPresenter(
+      menuHolderFuture: menuHolderFuture,
+      cartHolderFuture: cartHolderFuture,
+    ),
   ),
   MapPage(
     icon: NavigationIcon(Icons.map),
@@ -54,7 +58,9 @@ final _pages = <INavigationBarPage>[
   CartPage(
     icon: NavigationIcon(Icons.shopping_cart),
     label: "Корзина",
-    presenter: CartPresenter(),
+    presenter: CartPresenter(
+      cartHolderFuture: cartHolderFuture,
+    ),
   ),
 ];
 

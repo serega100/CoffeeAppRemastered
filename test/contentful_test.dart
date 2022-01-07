@@ -88,6 +88,7 @@ void main() {
           id: Id<Category>(
               sourceId: "contentful_cdn", value: "1jx1uzlIXPtmJcu6TzMbaC"),
           title: "Кофе",
+          orderPriority: 1,
         ),
         volume: 250,
         volumeUnits: VolumeUnits.ml,
