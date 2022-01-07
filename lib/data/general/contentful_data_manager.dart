@@ -68,7 +68,7 @@ class ContentfulDataManager implements IGeneralDataManager {
             break;
         }
       }
-
+      categoryList.sort((c1, c2) => c1.orderPriority.compareTo(c2.orderPriority));
       productMap = _parseProducts(productJsonList, categoryList, imageMap);
 
       var addressHolder = AddressHolder(addressList);
@@ -114,9 +114,11 @@ class ContentfulDataManager implements IGeneralDataManager {
       value: _parseIdValue(itemJson),
     );
     var title = itemJson["fields"]["name"] as String;
+    var priority = itemJson["fields"]["orderPriority"] as int;
     return Category(
       id: id,
       title: title,
+      orderPriority: priority,
     );
   }
 
