@@ -4,7 +4,7 @@ import 'package:coffee_app_remastered/presenter/cart/i_cart_presenter.dart';
 import 'package:coffee_app_remastered/view/components/cart/cart_item_container.dart';
 import 'package:coffee_app_remastered/view/components/cart/go_checkout_button.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
-import 'package:coffee_app_remastered/view/components/page_typography.dart';
+import 'package:coffee_app_remastered/view/components/page_title.dart';
 import 'package:coffee_app_remastered/view/pages/cart/empty_cart_page.dart';
 import 'package:coffee_app_remastered/view/pages/cart/i_cart_view.dart';
 import 'package:coffee_app_remastered/view/pages/checkout/checkout_page.dart';

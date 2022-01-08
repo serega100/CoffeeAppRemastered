@@ -7,7 +7,7 @@ import 'package:coffee_app_remastered/model/map/personal_map_holder.dart';
 import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
 import 'package:coffee_app_remastered/view/components/map/address_draggable_sheet.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
-import 'package:coffee_app_remastered/view/components/page_typography.dart';
+import 'package:coffee_app_remastered/view/components/page_title.dart';
 import 'package:coffee_app_remastered/view/pages/map/i_map_view.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';

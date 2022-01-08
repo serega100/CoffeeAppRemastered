@@ -3,7 +3,7 @@ import 'package:coffee_app_remastered/view/components/discount/action/coffee_pro
 import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/discount/small_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
-import 'package:coffee_app_remastered/view/components/page_typography.dart';
+import 'package:coffee_app_remastered/view/components/page_title.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';

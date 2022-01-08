@@ -6,7 +6,7 @@ import 'package:coffee_app_remastered/model/product/volume_units.dart';
 import 'package:coffee_app_remastered/view/components/checkout/checkout_container.dart';
 import 'package:coffee_app_remastered/view/components/checkout/order_checkout_container.dart';
 import 'package:coffee_app_remastered/view/components/checkout/pay_button.dart';
-import 'package:coffee_app_remastered/view/components/page_typography.dart';
+import 'package:coffee_app_remastered/view/components/page_title.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +29,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                PageTitle("Заказ"),
+                PageTitle("Заказ", backButton: BackButton(
+                  color: ViewSettings.secondColor,
+                  onPressed: () {},
+                ),),
                 Wrap(
                   runSpacing: 15,
                   children: [

@@ -15,4 +15,5 @@ class ViewSettings {
 
   static const pageMargin = EdgeInsets.only(left: 15, right: 15, bottom: 20);
   static const pageTitleMargin = EdgeInsets.only(top: 20, bottom: 30, left: 5);
+  static const buttonedPageTitleMargin = EdgeInsets.only(top: 20, bottom: 30);
 }
