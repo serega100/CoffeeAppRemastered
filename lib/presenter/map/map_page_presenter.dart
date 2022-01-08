@@ -50,7 +50,6 @@ class MapPagePresenter implements IMapPresenter {
     _addressHolderFuture.then((holder) {
       _addressHolder = holder;
       _updateDistances().then((success) {
-        if (success) _addressHolder.sortByDistance();
         _view.addressHolder = _addressHolder;
       });
     });

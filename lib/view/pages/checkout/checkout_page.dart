@@ -1,8 +1,7 @@
-import 'package:coffee_app_remastered/data/id.dart';
-import 'package:coffee_app_remastered/model/cart/cart_item.dart';
-import 'package:coffee_app_remastered/model/product/category.dart';
-import 'package:coffee_app_remastered/model/product/product.dart';
-import 'package:coffee_app_remastered/model/product/volume_units.dart';
+import 'package:coffee_app_remastered/model/cart/cart_holder.dart';
+import 'package:coffee_app_remastered/model/map/address/address.dart';
+import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
+import 'package:coffee_app_remastered/presenter/checkout/i_checkout_presenter.dart';
 import 'package:coffee_app_remastered/view/components/checkout/checkout_container.dart';
 import 'package:coffee_app_remastered/view/components/checkout/order_checkout_container.dart';
 import 'package:coffee_app_remastered/view/components/checkout/pay_button.dart';
@@ -11,14 +10,54 @@ import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'i_checkout_view.dart';
+
 class CheckoutPage extends StatefulWidget {
-  const CheckoutPage({Key? key}) : super(key: key);
+  final ICheckoutPresenter presenter;
+
+  const CheckoutPage({
+    required this.presenter,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _CheckoutPageState createState() => _CheckoutPageState();
 }
 
-class _CheckoutPageState extends State<CheckoutPage> {
+class _CheckoutPageState extends State<CheckoutPage> implements ICheckoutView {
+  late Address _address;
+  late CartHolder _cartHolder;
+
+  @override
+  void initState() {
+    widget.presenter.view = this;
+  }
+
+  @override
+  set address(Address address) {
+    setState(() {
+      _address = address;
+    });
+  }
+
+  @override
+  set cartHolder(CartHolder holder) {
+    setState(() {
+      _cartHolder = holder;
+    });
+  }
+
+  @override
+  void showAddressBar(AddressHolder addressHolder) {
+    // TODO: implement showAddressBar
+    print("Address bar showed");
+  }
+
+  @override
+  void hideAddressBar() {
+    // TODO: implement hideAddressBar
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,10 +68,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                PageTitle("Заказ", backButton: BackButton(
-                  color: ViewSettings.secondColor,
-                  onPressed: () {},
-                ),),
+                PageTitle(
+                  "Заказ",
+                  backButton: BackButton(
+                    color: ViewSettings.secondColor,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
                 Wrap(
                   runSpacing: 15,
                   children: [
@@ -40,7 +82,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: widget.presenter.onAddressBarOpen,
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 20, top: 20, bottom: 20, right: 10),
@@ -55,7 +97,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 SizedBox(width: 20),
                                 Expanded(
                                   flex: 5,
-                                  child: Text("ул. Малышева, д. 113",
+                                  child: Text(_address.title,
                                       textAlign: TextAlign.end,
                                       style: GoogleFonts.montserrat(
                                         fontSize: 24,
@@ -73,64 +115,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     OrderCheckoutContainer(
-                      items: [
-                        CartItem(
-                            product: Product(
-                          id: Id<Product>(sourceId: 'test', value: 0),
-                          title: "Американо",
-                          category: Category(
-                            id: Id<Category>(sourceId: 'test', value: 0),
-                            title: "Кофе",
-                            orderPriority: 1,
-                          ),
-                          volume: 200,
-                          volumeUnits: VolumeUnits.ml,
-                          image: Image.asset("assets/test/americano.jpg").image,
-                          price: 200,
-                        )),
-                        CartItem(
-                            product: Product(
-                              id: Id<Product>(sourceId: 'test', value: 0),
-                              title: "Американо",
-                              category: Category(
-                                id: Id<Category>(sourceId: 'test', value: 0),
-                                title: "Кофе",
-                                orderPriority: 1,
-                              ),
-                              volume: 200,
-                              volumeUnits: VolumeUnits.ml,
-                              image: Image.asset("assets/test/americano.jpg").image,
-                              price: 200,
-                            )),
-                        CartItem(
-                            product: Product(
-                              id: Id<Product>(sourceId: 'test', value: 0),
-                              title: "Американо",
-                              category: Category(
-                                id: Id<Category>(sourceId: 'test', value: 0),
-                                title: "Кофе",
-                                orderPriority: 1,
-                              ),
-                              volume: 200,
-                              volumeUnits: VolumeUnits.ml,
-                              image: Image.asset("assets/test/americano.jpg").image,
-                              price: 200,
-                            )),
-                        CartItem(
-                            product: Product(
-                              id: Id<Product>(sourceId: 'test', value: 0),
-                              title: "Американо",
-                              category: Category(
-                                id: Id<Category>(sourceId: 'test', value: 0),
-                                title: "Кофе",
-                                orderPriority: 1,
-                              ),
-                              volume: 200,
-                              volumeUnits: VolumeUnits.ml,
-                              image: Image.asset("assets/test/americano.jpg").image,
-                              price: 200,
-                            )),
-                      ],
+                      items: _cartHolder.getItems(),
                     ),
                     CheckoutContainer(
                       child: Padding(
@@ -142,7 +127,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 style: GoogleFonts.montserrat(fontSize: 18)),
                             Spacer(),
                             Text(
-                              "600 Р",
+                              _cartHolder.stringSum,
                               style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
@@ -161,7 +146,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: PayButton(onPressed: () {}),
+          child: PayButton(onPressed: widget.presenter.onPayButtonPressed),
         ),
       ],
     );

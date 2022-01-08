@@ -26,13 +26,23 @@ class AddressHolder {
       var distance = distanceFunction(address);
       address.distance = distance;
     }
+    _sortByDistance();
     _isDistanced = true;
   }
 
-  void sortByDistance() {
+  void _sortByDistance() {
     if (isDistanced) {
       _list.sort((address1, address2) =>
           address1.distance!.compareTo(address2.distance!));
     }
+  }
+
+  Address? getNearOpenedAddress() {
+    for (var address in _list) {
+      if (address.openingHours.isOpened) {
+        return address;
+      }
+    }
+    return null;
   }
 }

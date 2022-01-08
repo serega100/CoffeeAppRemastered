@@ -2,9 +2,8 @@ import 'package:coffee_app_remastered/data/general/contentful_data_manager.dart'
 import 'package:coffee_app_remastered/data/general/i_general_data_manager.dart';
 import 'package:coffee_app_remastered/data/personal/i_personal_data_manager.dart';
 import 'package:coffee_app_remastered/data/personal/local_data_manager.dart';
-import 'package:coffee_app_remastered/model/cart/cart_holder.dart';
-import 'package:coffee_app_remastered/model/menu_holder.dart';
 import 'package:coffee_app_remastered/presenter/cart/cart_presenter.dart';
+import 'package:coffee_app_remastered/presenter/checkout/checkout_presenter_creator.dart';
 import 'package:coffee_app_remastered/presenter/map/map_page_presenter.dart';
 import 'package:coffee_app_remastered/presenter/menu/menu_presenter.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
@@ -27,8 +26,10 @@ Future<void> main() async {
 final IPersonalDataManager personalData = LocalDataManager();
 final IGeneralDataManager generalData = ContentfulDataManager();
 
-final Future<MenuHolder> menuHolderFuture = generalData.menuHolderFuture;
-final Future<CartHolder> cartHolderFuture = personalData.getCartHolderFuture(menuHolderFuture);
+final menuHolderFuture = generalData.menuHolderFuture;
+final cartHolderFuture = personalData.getCartHolderFuture(menuHolderFuture);
+final addressHolderFuture = generalData.addressHolderFuture;
+final personalMapHolderFuture = personalData.getPersonalMapHolderFuture();
 
 final _pages = <INavigationBarPage>[
   HomePage(
@@ -51,16 +52,19 @@ final _pages = <INavigationBarPage>[
     icon: NavigationIcon(Icons.map),
     label: "Карта",
     presenter: MapPagePresenter(
-      addressHolderFuture: generalData.addressHolderFuture,
-      personalHolderFuture: personalData.getPersonalMapHolderFuture(),
+      addressHolderFuture: addressHolderFuture,
+      personalHolderFuture: personalMapHolderFuture,
     ),
   ),
   CartPage(
     icon: NavigationIcon(Icons.shopping_cart),
     label: "Корзина",
-    presenter: CartPresenter(
+    cartPresenter: CartPresenter(
       cartHolderFuture: cartHolderFuture,
+      addressHolderFuture: addressHolderFuture,
+      personalMapHolderFuture: personalMapHolderFuture,
     ),
+    checkoutPresenterCreator: CheckoutPresenterCreator(),
   ),
 ];
 
