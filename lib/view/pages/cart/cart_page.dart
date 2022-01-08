@@ -7,6 +7,7 @@ import 'package:coffee_app_remastered/view/components/navigation/navigation_icon
 import 'package:coffee_app_remastered/view/components/page_typography.dart';
 import 'package:coffee_app_remastered/view/pages/cart/empty_cart_page.dart';
 import 'package:coffee_app_remastered/view/pages/cart/i_cart_view.dart';
+import 'package:coffee_app_remastered/view/pages/checkout/checkout_page.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
 import 'package:coffee_app_remastered/view/view_utils.dart';
@@ -59,6 +60,7 @@ class _CartPageState extends State<CartPage> implements ICartView {
 
   @override
   Widget build(BuildContext context) {
+    return CheckoutPage();
     if (_holder == null) return Container();
     if (_holder!.getItems().isEmpty) return const EmptyCartPage();
     return Stack(
