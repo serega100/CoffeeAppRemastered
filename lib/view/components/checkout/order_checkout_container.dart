@@ -21,10 +21,9 @@ class OrderCheckoutContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 20, right: 10, bottom: 10),
-              child:
-                  Text("Ваш заказ:", style: GoogleFonts.montserrat(fontSize: 18)),
+              padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
+              child: Text("Ваш заказ:",
+                  style: GoogleFonts.montserrat(fontSize: 18)),
             ),
             _generateItemsWrap(items),
           ],
@@ -75,24 +74,30 @@ class _ItemContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(item.product.title,
-                  style: GoogleFonts.roboto(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Text(item.product.volumeString,
-                  style: GoogleFonts.roboto(
-                    fontSize: 14,
-                    color: const Color(0xFF868686),
-                  )),
+              Text(
+                item.product.title,
+                style: GoogleFonts.roboto(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                item.product.volumeString,
+                style: GoogleFonts.roboto(
+                  fontSize: 14,
+                  color: const Color(0xFF868686),
+                ),
+              ),
             ],
           ),
           Spacer(),
-          Text(item.product.priceString,
-              style: GoogleFonts.roboto(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              )),
+          Text(
+            item.product.priceString,
+            style: GoogleFonts.roboto(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
