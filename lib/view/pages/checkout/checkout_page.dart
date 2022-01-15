@@ -2,6 +2,7 @@ import 'package:coffee_app_remastered/model/cart/cart_holder.dart';
 import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
 import 'package:coffee_app_remastered/presenter/checkout/i_checkout_presenter.dart';
+import 'package:coffee_app_remastered/view/components/bottom_sheet/address_bottom_sheet.dart';
 import 'package:coffee_app_remastered/view/components/checkout/checkout_container.dart';
 import 'package:coffee_app_remastered/view/components/checkout/order_checkout_container.dart';
 import 'package:coffee_app_remastered/view/components/checkout/pay_button.dart';
@@ -25,8 +26,10 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> implements ICheckoutView {
-  late Address _address;
+  late Address _selectedAddress;
+  late AddressHolder _addressHolder;
   late CartHolder _cartHolder;
+  bool _isAddressSheetShowing = false;
 
   @override
   void initState() {
@@ -34,9 +37,16 @@ class _CheckoutPageState extends State<CheckoutPage> implements ICheckoutView {
   }
 
   @override
-  set address(Address address) {
+  set selectedAddress(Address address) {
     setState(() {
-      _address = address;
+      _selectedAddress = address;
+    });
+  }
+
+  @override
+  set addressHolder(AddressHolder holder) {
+    setState(() {
+      _addressHolder = holder;
     });
   }
 
@@ -49,13 +59,18 @@ class _CheckoutPageState extends State<CheckoutPage> implements ICheckoutView {
 
   @override
   void showAddressBar(AddressHolder addressHolder) {
-    // TODO: implement showAddressBar
+    setState(() {
+      _isAddressSheetShowing = true;
+    });
     print("Address bar showed");
   }
 
   @override
   void hideAddressBar() {
-    // TODO: implement hideAddressBar
+    setState(() {
+      _isAddressSheetShowing = false;
+    });
+    print("Address bar hidden");
   }
 
   @override
@@ -97,7 +112,7 @@ class _CheckoutPageState extends State<CheckoutPage> implements ICheckoutView {
                                 SizedBox(width: 20),
                                 Expanded(
                                   flex: 5,
-                                  child: Text(_address.title,
+                                  child: Text(_selectedAddress.title,
                                       textAlign: TextAlign.end,
                                       style: GoogleFonts.montserrat(
                                         fontSize: 24,
@@ -148,6 +163,19 @@ class _CheckoutPageState extends State<CheckoutPage> implements ICheckoutView {
           alignment: Alignment.bottomCenter,
           child: PayButton(onPressed: widget.presenter.onPayButtonPressed),
         ),
+        if (_isAddressSheetShowing)
+          GestureDetector(
+              onTap: widget.presenter.onAddressBarClosed,
+              child: FractionallySizedBox(
+                  widthFactor: 1,
+                  heightFactor: 1,
+                  child: Container(color: Colors.black.withOpacity(0.5)))),
+        if (_isAddressSheetShowing)
+          AddressBottomSheet.unselectable(
+            addressList: _addressHolder.list,
+            onAddressPressed: widget.presenter.onAddressChanged,
+            selectedAddressId: _selectedAddress.id,
+          )
       ],
     );
   }

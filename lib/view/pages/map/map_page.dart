@@ -5,7 +5,7 @@ import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
 import 'package:coffee_app_remastered/model/map/location.dart';
 import 'package:coffee_app_remastered/model/map/personal_map_holder.dart';
 import 'package:coffee_app_remastered/presenter/map/i_map_presenter.dart';
-import 'package:coffee_app_remastered/view/components/map/address_draggable_sheet.dart';
+import 'package:coffee_app_remastered/view/components/bottom_sheet/address_bottom_sheet.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
 import 'package:coffee_app_remastered/view/components/page_title.dart';
 import 'package:coffee_app_remastered/view/pages/map/i_map_view.dart';
@@ -115,7 +115,7 @@ class _MapPageState extends State<MapPage> implements IMapView {
             ),
           ],
         ),
-        AddressDraggableSheet(
+        AddressBottomSheet.selectable(
           addressList: _addressHolder?.list,
           onAddressPressed: widget.presenter.onPressAddress,
           onAddressSelected: widget.presenter.onSelectAddress,

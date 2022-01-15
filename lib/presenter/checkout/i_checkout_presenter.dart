@@ -5,6 +5,7 @@ abstract class ICheckoutPresenter {
   set view(ICheckoutView view);
 
   void onAddressBarOpen();
+  void onAddressBarClosed();
   void onAddressChanged(Address newAddress);
   void onPayButtonPressed();
 }

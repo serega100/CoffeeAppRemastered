@@ -1,6 +1,6 @@
 import 'package:coffee_app_remastered/model/map/address/address.dart';
 import 'package:coffee_app_remastered/model/map/address/oppening_hours.dart';
-import 'package:coffee_app_remastered/view/components/map/select_button.dart';
+import 'package:coffee_app_remastered/view/components/bottom_sheet/select_button.dart';
 import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +8,30 @@ import 'package:flutter/material.dart';
 class AddressContainer extends StatelessWidget {
   final Address address;
   final void Function(Address) onPressed;
-  final void Function(Address) onSelected;
+  final void Function(Address)? onSelected;
+  final bool selectable;
   final bool selected;
 
   static const padding = EdgeInsets.symmetric(vertical: 10, horizontal: 15);
 
-  const AddressContainer({
+  const AddressContainer.selectable({
     required this.address,
     required this.onPressed,
-    required this.onSelected,
+    required Function(Address) onSelected,
     required this.selected,
     Key? key,
-  }) : super(key: key);
+  })  : selectable = true,
+        this.onSelected = onSelected,
+        super(key: key);
+
+  const AddressContainer.unselectable({
+    required this.address,
+    required this.onPressed,
+    required this.selected,
+    Key? key,
+  })  : selectable = false,
+        onSelected = null,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +72,16 @@ class AddressContainer extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SelectButton(
-                      selected: selected,
-                      onSelected: () => onSelected(address),
+                    if (selected || selectable)
+                    Column(
+                      children: [
+                        SelectButton(
+                          selected: selected,
+                          onSelected: () => onSelected!(address),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    const SizedBox(height: 5),
                     Spacer(),
                     if (address.distance != null)
                       Text(

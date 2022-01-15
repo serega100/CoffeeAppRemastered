@@ -4,7 +4,8 @@ import 'package:coffee_app_remastered/model/map/address/address_holder.dart';
 
 abstract class ICheckoutView {
   set cartHolder(CartHolder holder);
-  set address(Address address);
+  set addressHolder(AddressHolder holder);
+  set selectedAddress(Address address);
 
   void showAddressBar(AddressHolder addressHolder);
   void hideAddressBar();

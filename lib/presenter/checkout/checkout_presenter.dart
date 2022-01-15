@@ -20,13 +20,18 @@ class CheckoutPresenter implements ICheckoutPresenter {
   @override
   void onAddressBarOpen() {
     _view.showAddressBar(addressHolder);
-    // TODO: implement onAddressBarOpened
+  }
+
+  @override
+  void onAddressBarClosed() {
+    _view.hideAddressBar();
   }
 
   @override
   void onAddressChanged(Address currentAddress) {
     address = currentAddress;
-    _view.address = address;
+    _view.selectedAddress = address;
+    onAddressBarClosed();
   }
 
   @override
@@ -38,7 +43,8 @@ class CheckoutPresenter implements ICheckoutPresenter {
   @override
   set view(ICheckoutView view) {
     _view = view;
-    view.address = address;
+    view.addressHolder = addressHolder;
+    view.selectedAddress = address;
     view.cartHolder = cartHolder;
   }
 }
