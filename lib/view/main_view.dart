@@ -30,7 +30,6 @@ class MainView extends StatelessWidget {
         onPageChanged: _onPageChanged,
       ),
     );
-    throw UnimplementedError();
   }
 
   void _onPageChanged(INavigationBarPage newPage) {
