@@ -27,7 +27,6 @@ class MenuPresenter implements IMenuPresenter {
 
   @override
   void onProductAdded(Product product) {
-    print("Product Added event called");
     _cartHolderFuture.then((holder) {
       holder.addItem(CartItem(product: product));
       _view.showAddedNotification(product);
