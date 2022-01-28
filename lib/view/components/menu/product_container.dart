@@ -26,35 +26,32 @@ class ProductContainer extends StatefulWidget {
 class _ProductContainerState extends State<ProductContainer> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(),
-      child: Row(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: widget.image,
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(10),
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: widget.image,
+              fit: BoxFit.cover,
             ),
-            width: 80,
-            height: 80,
+            borderRadius: BorderRadius.circular(10),
           ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 10.0)),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-              Text(widget.volumeString, style: TextStyle(fontSize: 14, color: Color(0xFF868686)),),
-              Padding(padding: EdgeInsets.symmetric(vertical: 5.0),),
-              Text(ViewUtils.beautifyPrice(widget.price), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-            ],
-          ),
-          Spacer(),
-          AddProductButton(onTap: widget.onAdded),
-        ],
-      ),
+          width: 80,
+          height: 80,
+        ),
+        const Padding(padding: EdgeInsets.symmetric(horizontal: 10.0)),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            Text(widget.volumeString, style: TextStyle(fontSize: 14, color: Color(0xFF868686)),),
+            Padding(padding: EdgeInsets.symmetric(vertical: 5.0),),
+            Text(ViewUtils.beautifyPrice(widget.price), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+          ],
+        ),
+        Spacer(),
+        AddProductButton(onTap: widget.onAdded),
+      ],
     );
   }
 }
