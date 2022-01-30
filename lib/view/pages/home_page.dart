@@ -1,11 +1,13 @@
 import 'package:coffee_app_remastered/view/components/discount/action/action_text.dart';
-import 'package:coffee_app_remastered/view/components/discount/action/coffee_progress.dart';
+import 'package:coffee_app_remastered/view/components/discount/action/progress_action.dart';
+import 'package:coffee_app_remastered/view/components/discount/action/price_action.dart';
 import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/discount/small_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
 import 'package:coffee_app_remastered/view/components/page_title.dart';
 import 'package:coffee_app_remastered/view/pages/i_navigable_page.dart';
 import 'package:coffee_app_remastered/view/view_settings.dart';
+import 'package:coffee_app_remastered/view/view_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SmallDiscountContainer(
                     title: "Шестой кофе бесплатно",
-                    action: CoffeeProgress(4, 6),
+                    action: DiscountProgressAction(4, 6),
                     backgroundImage: Image.asset("assets/test/coffee_mug.jpg"),
                     width: smallContainerWidth,
                   ),
@@ -84,41 +86,39 @@ class _HomePageState extends State<HomePage> {
                         Image.asset("assets/test/coffee_cup_on_table.jpg"),
                     width: smallContainerWidth,
                   ),
-                  SmallDiscountContainer(
-                    title: "Айс-крим-брод за 69 руб",
-                    action: DiscountActionText("Успей до 26 ноября"),
-                    backgroundImage:
-                        Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                    width: smallContainerWidth,
-                  ),
-                ]),
+                  // SmallDiscountContainer(
+                  //   title: "Айс-крим-брод за 69 руб",
+                  //   action: DiscountActionText("Успей до 26 ноября"),
+                  //   backgroundImage:
+                  //       Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                  //   width: smallContainerWidth,
+                  // ),
+                ]
+            ),
             PageTitle("Это интересно"),
             Wrap(
               spacing: widget.horizontalContainerSpacing,
               runSpacing: widget.verticalContainerSpacing,
               children: [
-                BigDiscountContainer(
-                  title: "Первый кофе бесплатно",
-                  action: DiscountActionText("Акция доступна для вас"),
-                  backgroundImage:
-                      Image.asset("assets/test/coffee_cup_on_table.jpg"),
-                ),
                 SmallDiscountContainer(
-                  title: "Айс-крим-брод за 69 руб",
-                  action: DiscountActionText("Успей до 26 ноября"),
+                  title: "Первый кофе бесплатно",
+                  action: PriceDiscountAction(
+                    actionText: 'Новинка!',
+                    priceString: ViewUtils.beautifyPrice(200),
+                  ),
                   backgroundImage:
                       Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   width: smallContainerWidth,
                 ),
                 SmallDiscountContainer(
-                  title: "Айс-крим-брод за 69 руб",
+                  title: "Первый кофе бесплатно",
                   backgroundImage:
-                      Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                  Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   width: smallContainerWidth,
                 ),
               ],
             )
-          ], // todo add price containers
+          ], // todo add big price container
         ),
       ),
     );

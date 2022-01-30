@@ -1,24 +1,24 @@
 import 'package:coffee_app_remastered/view/components/discount/action/i_discount_action.dart';
 import 'package:flutter/material.dart';
 
-class CoffeeProgress extends StatefulWidget implements IDiscountAction {
+class DiscountProgressAction extends StatefulWidget implements IDiscountAction {
   final int maxProgress;
   int _progress;
 
   get progress => _progress;
 
-  CoffeeProgress(int currentProgress, this.maxProgress, {Key? key})
+  DiscountProgressAction(int currentProgress, this.maxProgress, {Key? key})
       : _progress = currentProgress,
         super(key: key);
 
   @override
-  _CoffeeProgressState createState() => _CoffeeProgressState();
+  _DiscountProgressActionState createState() => _DiscountProgressActionState();
 
   @override
   Widget get widget => this;
 }
 
-class _CoffeeProgressState extends State<CoffeeProgress> {
+class _DiscountProgressActionState extends State<DiscountProgressAction> {
   @override
   Widget build(BuildContext context) {
     var cups = getCups(widget.progress, widget.maxProgress);

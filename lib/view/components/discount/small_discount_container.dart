@@ -28,10 +28,10 @@ class SmallDiscountContainer extends StatelessWidget implements IDiscountContain
   Widget build(BuildContext context) {
     var content = <Widget>[
       DiscountContainerTitle(_title),
-      Spacer()
     ];
 
     if (_action != null) {
+      content.add(const SizedBox(height: 10));
       content.add(_action!.widget);
     } else {
       content.add(DiscountContainerActionText(""));
@@ -50,7 +50,7 @@ class SmallDiscountContainer extends StatelessWidget implements IDiscountContain
       margin: _margin,
       width: _width,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: content,
       ),

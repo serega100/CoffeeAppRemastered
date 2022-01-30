@@ -1,5 +1,5 @@
 import 'package:coffee_app_remastered/view/components/discount/action/action_text.dart';
-import 'package:coffee_app_remastered/view/components/discount/action/coffee_progress.dart';
+import 'package:coffee_app_remastered/view/components/discount/action/progress_action.dart';
 import 'package:coffee_app_remastered/view/components/discount/big_discount_container.dart';
 import 'package:coffee_app_remastered/view/components/navigation/navigation_icon.dart';
 import 'package:coffee_app_remastered/view/components/page_title.dart';
@@ -58,7 +58,7 @@ class _DiscountsPageState extends State<DiscountsPage> {
                     title: "Шестой кофе бесплатно",
                     description:
                         "Закажите через приложение 5 чашек любого кофе и получите 6-ю за наш счёт!",
-                    action: CoffeeProgress(4, 6),
+                    action: DiscountProgressAction(4, 6),
                     backgroundImage: Image.asset("assets/test/coffee_mug.jpg"),
                   ),
                 ],
