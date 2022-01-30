@@ -93,8 +93,7 @@ class _HomePageState extends State<HomePage> {
                   //       Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   //   width: smallContainerWidth,
                   // ),
-                ]
-            ),
+                ]),
             PageTitle("Это интересно"),
             Wrap(
               spacing: widget.horizontalContainerSpacing,
@@ -113,12 +112,21 @@ class _HomePageState extends State<HomePage> {
                 SmallDiscountContainer(
                   title: "Первый кофе бесплатно",
                   backgroundImage:
-                  Image.asset("assets/test/coffee_cup_on_table.jpg"),
+                      Image.asset("assets/test/coffee_cup_on_table.jpg"),
                   width: smallContainerWidth,
                 ),
+                BigDiscountContainer(
+                  title: 'Холодный латте',
+                  height: 180,
+                  backgroundImage: Image.asset("assets/test/cold_coffee.jpg"),
+                  action: PriceDiscountAction(
+                    actionText: 'Новинка!',
+                    priceString: ViewUtils.beautifyPrice(200),
+                  ),
+                )
               ],
             )
-          ], // todo add big price container
+          ],
         ),
       ),
     );

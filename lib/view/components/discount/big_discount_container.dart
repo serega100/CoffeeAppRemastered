@@ -3,8 +3,10 @@ import 'package:coffee_app_remastered/view/components/discount/discount_containe
 import 'package:coffee_app_remastered/view/components/discount/i_discount_container.dart';
 import 'package:flutter/material.dart';
 
-class BigDiscountContainer extends StatelessWidget implements IDiscountContainer {
+class BigDiscountContainer extends StatelessWidget
+    implements IDiscountContainer {
   String _title;
+  double? _height;
   String? _description;
   Image _backgroundImage; // todo switch Image to ImageProvider
   IDiscountAction? _action;
@@ -12,12 +14,14 @@ class BigDiscountContainer extends StatelessWidget implements IDiscountContainer
 
   BigDiscountContainer({
     required String title,
+    double? height,
     IDiscountAction? action,
     String? description,
     required Image backgroundImage,
     EdgeInsetsGeometry? margin,
     Key? key,
   })  : _title = title,
+        _height = height,
         _action = action,
         _description = description,
         _backgroundImage = backgroundImage,
@@ -37,6 +41,7 @@ class BigDiscountContainer extends StatelessWidget implements IDiscountContainer
     }
 
     return Container(
+      height: _height,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: _backgroundImage.image,
