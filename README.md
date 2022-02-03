@@ -5,7 +5,7 @@ Small app for a coffee house. User can check discounts and buy something using t
 Live Demo
 ----------
 
-![Gif Demo](https://i.ibb.co/hDKGtj7/coffee-app-demo.gif)
+[Click to see the demo](https://ibb.co/qkRHPfy)
 
 App Features
 ------------
