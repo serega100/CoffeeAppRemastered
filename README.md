@@ -1,16 +1,22 @@
-# coffee_app_remastered
+# Coffee App
 
-Coffee App with thoughtful design and architecture
+Small app for a coffee house. User can check discounts and buy something using the app.
 
-## Getting Started
+Live Demo
+----------
 
-This project is a starting point for a Flutter application.
+![Gif Demo](https://i.ibb.co/hDKGtj7/coffee-app-demo.gif)
 
-A few resources to get you started if this is your first Flutter project:
+App Features
+------------
+- Works on Android and iOS
+- Uses [Contentful](https://www.contentful.com/) API
+- UI designed on [Figma](https://www.figma.com/file/oidBIPtwflevBwCOuetNSK/Coffee-App?node-id=0%3A1)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Used Stack
+----------
+
+- [Flutter](https://flutter.dev/) framework
+- BLoC pattern
+- [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/)
