@@ -54,6 +54,7 @@ class AddressContainer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
                       ),
+                      overflow: TextOverflow.clip,
                     ),
                     SizedBox(height: 5),
                     Text(
@@ -61,6 +62,7 @@ class AddressContainer extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14,
                       ),
+                      overflow: TextOverflow.clip,
                     ),
                     const SizedBox(height: 5),
                     _AddressStateWidget(
